@@ -1,0 +1,18 @@
+{
+  "name": "swiftx-monorepo",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:nextjs": "yarn workspace nextjs-api-server dev",
+    "build:nextjs": "yarn workspace nextjs-api-server build",
+    "test:nextjs": "yarn workspace nextjs-api-server test",
+    "dev:flutter": "cd apps/swiftx_app && flutter run",
+    "build:flutter": "cd apps/swiftx_app && flutter build",
+    "lint:nextjs": "yarn workspace nextjs-api-server lint"
+  }
+}
