@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:swiftx_app/widget/button/operational_button.dart';
 import 'package:swiftx_app/widget/card/credit_card.dart';
 import 'package:swiftx_app/widget/icons/icon.dart';
 import 'package:swiftx_app/widget/icons/icons.dart';
@@ -40,13 +41,12 @@ class HomeView extends StatelessWidget {
             ),
             Container(
               margin: const EdgeInsets.symmetric(vertical: 20),
-              padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
+                    color: Colors.grey.withOpacity(0.1),
                     spreadRadius: 2,
                     blurRadius: 5,
                     offset: Offset(0, 3),
@@ -55,54 +55,30 @@ class HomeView extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Expanded(
-                    child: Column(
-                      children: [
-                        AppIcon(
-                          icon: AppIcons.money_send,
-                          size: 30,
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        SizedBox(height: 5),
-                        Text('Send'),
-                      ],
-                    ),
+                  OperationalButton(
+                    icon: AppIcons.money_send,
+                    title: "Send",
+                    onTap: () {},
                   ),
                   SizedBox(
                     height: 40,
                     child: VerticalDivider(),
                   ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        AppIcon(
-                          icon: AppIcons.money_receive,
-                          size: 30,
-                          color: Color(0xffF9A825),
-                        ),
-                        SizedBox(height: 5),
-                        Text('Receive'),
-                      ],
-                    ),
+                  OperationalButton(
+                    icon: AppIcons.money_receive,
+                    title: "Receive",
+                    onTap: () {},
+                    color: const Color(0xffF9A825),
                   ),
                   SizedBox(
                     height: 40,
                     child: VerticalDivider(),
                   ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Icon(
-                          Icons.history,
-                          color: Colors.orange,
-                          size: 35,
-                        ),
-                        SizedBox(height: 5),
-                        Text(
-                          'History',
-                        ),
-                      ],
-                    ),
+                  OperationalButton(
+                    icon: AppIcons.book_saved,
+                    title: "Transactions",
+                    onTap: () {},
+                    color: const Color(0xffF9A825),
                   ),
                 ],
               ),

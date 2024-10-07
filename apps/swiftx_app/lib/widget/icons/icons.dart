@@ -8,4 +8,6 @@ class AppIcons {
   static const AppIcons money_receive = AppIcons._('money-receive');
 
   static const AppIcons money_send = AppIcons._('money-send');
+
+  static const AppIcons book_saved = AppIcons._('book-saved');
 }

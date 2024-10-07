@@ -39,13 +39,37 @@ class CreditCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16.0),
-              const Text(
-                "UAE",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                  letterSpacing: 2.0,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    "UAE",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      letterSpacing: 2.0,
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Locked Balance   ',
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 12.0,
+                        ),
+                      ),
+                      Text(
+                        '$balance',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
               const SizedBox(height: 80),
               Row(
