@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:swiftx_app/widget/icons/icon.dart';
-import 'package:swiftx_app/widget/icons/icons.dart';
 
 class OperationalButton extends StatelessWidget {
   final AppIcons icon;

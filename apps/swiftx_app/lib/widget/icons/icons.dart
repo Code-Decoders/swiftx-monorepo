@@ -1,3 +1,5 @@
+part of 'icon.dart';
+
 class AppIcons {
   const AppIcons._(this.name);
 

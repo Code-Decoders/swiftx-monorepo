@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftx_app/widget/button/operational_button.dart';
 import 'package:swiftx_app/widget/card/credit_card.dart';
+import 'package:swiftx_app/widget/card/transaction_card.dart';
 import 'package:swiftx_app/widget/icons/icon.dart';
-import 'package:swiftx_app/widget/icons/icons.dart';
 
 @RoutePage()
 class HomeView extends StatelessWidget {
@@ -28,13 +28,15 @@ class HomeView extends StatelessWidget {
           title: Text('Home', style: Theme.of(context).textTheme.headlineSmall),
         ),
         body: ListView(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
           children: [
             const SizedBox(height: 20),
             Text("Hi, Kunal",
-                style: Theme.of(context).textTheme.headlineMedium),
+                style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    )),
             const SizedBox(height: 20),
-            CreditCard(
+            const CreditCard(
               cardHolder: "Kunal",
               cardNumber: "1234 5678 9012 3456",
               balance: "AED 1000",
@@ -43,46 +45,87 @@ class HomeView extends StatelessWidget {
               margin: const EdgeInsets.symmetric(vertical: 20),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(15),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
-                    spreadRadius: 2,
-                    blurRadius: 5,
-                    offset: Offset(0, 3),
+                    color: Colors.grey.withOpacity(0.2),
+                    spreadRadius: 3,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   OperationalButton(
                     icon: AppIcons.money_send,
                     title: "Send",
                     onTap: () {},
+                    color: Colors.orange,
                   ),
                   SizedBox(
                     height: 40,
-                    child: VerticalDivider(),
+                    child: VerticalDivider(
+                      color: Colors.grey.shade300,
+                      thickness: 1,
+                    ),
                   ),
                   OperationalButton(
                     icon: AppIcons.money_receive,
                     title: "Receive",
                     onTap: () {},
-                    color: const Color(0xffF9A825),
+                    color: Colors.green,
                   ),
                   SizedBox(
                     height: 40,
-                    child: VerticalDivider(),
+                    child: VerticalDivider(
+                      color: Colors.grey.shade300,
+                      thickness: 1,
+                    ),
                   ),
                   OperationalButton(
                     icon: AppIcons.book_saved,
                     title: "Transactions",
                     onTap: () {},
-                    color: const Color(0xffF9A825),
+                    color: Theme.of(context).primaryColor,
                   ),
                 ],
               ),
-            )
+            ),
+            Text("Recent Transactions",
+                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    )),
+            const SizedBox(height: 10),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.1),
+                    spreadRadius: 3,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: 5,
+                separatorBuilder: (context, index) => const Divider(),
+                itemBuilder: (context, index) {
+                  return TransactionCard(
+                    title: "Payment",
+                    description: "Payment for the services",
+                    amount: 100,
+                    isIncome: false,
+                  );
+                },
+              ),
+            ),
           ],
         ));
   }
