@@ -14,5 +14,10 @@
     "dev:flutter": "cd apps/swiftx_app && flutter run",
     "build:flutter": "cd apps/swiftx_app && flutter build",
     "lint:nextjs": "yarn workspace nextjs-api-server lint"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "dotenv": "^16.4.5",
+    "ethers": "^6.13.3"
   }
 }
