@@ -9,11 +9,13 @@ class AuthService {
     required String phone,
     required String name,
     required String username,
+    required String country,
   }) async {
     return await supabase.auth.signUp(email: email, password: password, data: {
       'name': name,
       'phone': phone,
       'username': username,
+      'country': country,
     });
   }
 

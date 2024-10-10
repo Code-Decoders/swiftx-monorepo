@@ -116,6 +116,7 @@ class SignUpViewModel extends BaseViewModel {
       name: _name,
       phone: _phone,
       username: _username,
+      country: _country == "SG" ? "Singapore" : "UAE",
     )
         .then((response) {
       setBusyAndNotify(false);
