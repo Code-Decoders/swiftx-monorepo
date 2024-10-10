@@ -1,0 +1,10 @@
+{
+    "solidity.packageDefaultDependenciesContractsDirectory": "apps/swiftx-contracts/src",
+    "solidity.packageDefaultDependenciesDirectory": "apps/swiftx-contracts/lib",
+    "editor.formatOnSave": true,
+    "[solidity]": {
+        "editor.defaultFormatter": "JuanBlanco.solidity"
+    },
+    "solidity.formatter": "forge",
+    "solidity.compileUsingRemoteVersion": "v0.8.17"
+}
