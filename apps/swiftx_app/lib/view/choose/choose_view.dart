@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:swiftx_app/core/app_router.dart';
+import 'package:swiftx_app/view/choose/choose_viewmodel.dart';
 
 @RoutePage()
 class ChooseView extends StatelessWidget {
@@ -9,67 +11,74 @@ class ChooseView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          'Choose Recipient',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Please select your recipient to send money.',
-              style: TextStyle(color: Colors.grey),
+    return ChangeNotifierProvider(
+        create: (context) => ChooseViewModel(),
+        builder: (context, _) {
+          final model = context.watch<ChooseViewModel>();
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Choose Recipient"),
             ),
-            SizedBox(height: 20),
-            TextField(
-              decoration: InputDecoration(
-                hintText: 'Search "Recipient Email"',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                  borderSide: BorderSide.none,
-                ),
-                filled: true,
-                fillColor: Colors.grey[200],
+            body: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Please select your recipient to send money.',
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                  SizedBox(height: 20),
+                  TextField(
+                    onChanged: model.setQuery,
+                    decoration: InputDecoration(
+                      hintText: 'Search "Recipient Email"',
+                      prefixIcon: Icon(Icons.search),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8.0),
+                        borderSide: BorderSide.none,
+                      ),
+                      filled: true,
+                      fillColor: Colors.grey[200],
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    'Most Recent',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                  model.busy
+                      ? Center(child: CircularProgressIndicator())
+                      : Expanded(
+                          child: ListView.builder(
+                            itemCount: model.recipients.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                onTap: () => {
+                                  context.router.push(
+                                      SendRequestRoute(isIncome: isIncome))
+                                },
+                                leading: CircleAvatar(
+                                  child: Text(model.recipients[index].name[0]),
+                                ),
+                                title: Text(model.recipients[index].name),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                        "@" + model.recipients[index].username),
+                                    Text(model.recipients[index].email),
+                                  ],
+                                ),
+                                isThreeLine: true,
+                              );
+                            },
+                          ),
+                        ),
+                ],
               ),
             ),
-            SizedBox(height: 20),
-            Text(
-              'Most Recent',
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    onTap: () => {context.router.push(SendRequestRoute(isIncome: isIncome))},
-                    leading: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://via.placeholder.com/150'), // Replace with actual image URL
-                    ),
-                    title: Text('Mehedi Hasan'),
-                    subtitle: Text('helloyouthmind@gmail.com'),
-                    trailing: Text(
-                      '-\$100',
-                      style: TextStyle(
-                          color: Colors.red, fontWeight: FontWeight.bold),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+          );
+        });
   }
 }
