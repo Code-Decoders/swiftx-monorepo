@@ -49,10 +49,17 @@ class AppRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ChooseView]
-class ChooseRoute extends PageRouteInfo<void> {
-  const ChooseRoute({List<PageRouteInfo>? children})
-      : super(
+class ChooseRoute extends PageRouteInfo<ChooseRouteArgs> {
+  ChooseRoute({
+    Key? key,
+    required bool isIncome,
+    List<PageRouteInfo>? children,
+  }) : super(
           ChooseRoute.name,
+          args: ChooseRouteArgs(
+            key: key,
+            isIncome: isIncome,
+          ),
           initialChildren: children,
         );
 
@@ -61,9 +68,29 @@ class ChooseRoute extends PageRouteInfo<void> {
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const ChooseView();
+      final args = data.argsAs<ChooseRouteArgs>();
+      return ChooseView(
+        key: args.key,
+        isIncome: args.isIncome,
+      );
     },
   );
+}
+
+class ChooseRouteArgs {
+  const ChooseRouteArgs({
+    this.key,
+    required this.isIncome,
+  });
+
+  final Key? key;
+
+  final bool isIncome;
+
+  @override
+  String toString() {
+    return 'ChooseRouteArgs{key: $key, isIncome: $isIncome}';
+  }
 }
 
 /// generated route for
@@ -167,22 +194,114 @@ class LoginRouteArgs {
 }
 
 /// generated route for
-/// [SendView]
-class SendRoute extends PageRouteInfo<void> {
-  const SendRoute({List<PageRouteInfo>? children})
-      : super(
-          SendRoute.name,
+/// [RequestDetailView]
+class RequestDetailRoute extends PageRouteInfo<RequestDetailRouteArgs> {
+  RequestDetailRoute({
+    Key? key,
+    required String requestId,
+    List<PageRouteInfo>? children,
+  }) : super(
+          RequestDetailRoute.name,
+          args: RequestDetailRouteArgs(
+            key: key,
+            requestId: requestId,
+          ),
           initialChildren: children,
         );
 
-  static const String name = 'SendRoute';
+  static const String name = 'RequestDetailRoute';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      return const SendView();
+      final args = data.argsAs<RequestDetailRouteArgs>();
+      return RequestDetailView(
+        key: args.key,
+        requestId: args.requestId,
+      );
     },
   );
+}
+
+class RequestDetailRouteArgs {
+  const RequestDetailRouteArgs({
+    this.key,
+    required this.requestId,
+  });
+
+  final Key? key;
+
+  final String requestId;
+
+  @override
+  String toString() {
+    return 'RequestDetailRouteArgs{key: $key, requestId: $requestId}';
+  }
+}
+
+/// generated route for
+/// [RequestView]
+class RequestRoute extends PageRouteInfo<void> {
+  const RequestRoute({List<PageRouteInfo>? children})
+      : super(
+          RequestRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RequestRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const RequestView();
+    },
+  );
+}
+
+/// generated route for
+/// [SendRequestView]
+class SendRequestRoute extends PageRouteInfo<SendRequestRouteArgs> {
+  SendRequestRoute({
+    Key? key,
+    required bool isIncome,
+    List<PageRouteInfo>? children,
+  }) : super(
+          SendRequestRoute.name,
+          args: SendRequestRouteArgs(
+            key: key,
+            isIncome: isIncome,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'SendRequestRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<SendRequestRouteArgs>();
+      return SendRequestView(
+        key: args.key,
+        isIncome: args.isIncome,
+      );
+    },
+  );
+}
+
+class SendRequestRouteArgs {
+  const SendRequestRouteArgs({
+    this.key,
+    required this.isIncome,
+  });
+
+  final Key? key;
+
+  final bool isIncome;
+
+  @override
+  String toString() {
+    return 'SendRequestRouteArgs{key: $key, isIncome: $isIncome}';
+  }
 }
 
 /// generated route for
@@ -218,6 +337,71 @@ class SignUpRouteArgs {
   String toString() {
     return 'SignUpRouteArgs{key: $key}';
   }
+}
+
+/// generated route for
+/// [TransactionDetailView]
+class TransactionDetailRoute extends PageRouteInfo<TransactionDetailRouteArgs> {
+  TransactionDetailRoute({
+    Key? key,
+    required int id,
+    List<PageRouteInfo>? children,
+  }) : super(
+          TransactionDetailRoute.name,
+          args: TransactionDetailRouteArgs(
+            key: key,
+            id: id,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'TransactionDetailRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<TransactionDetailRouteArgs>();
+      return TransactionDetailView(
+        key: args.key,
+        id: args.id,
+      );
+    },
+  );
+}
+
+class TransactionDetailRouteArgs {
+  const TransactionDetailRouteArgs({
+    this.key,
+    required this.id,
+  });
+
+  final Key? key;
+
+  final int id;
+
+  @override
+  String toString() {
+    return 'TransactionDetailRouteArgs{key: $key, id: $id}';
+  }
+}
+
+/// generated route for
+/// [TransactionsView]
+class TransactionsRoute extends PageRouteInfo<void> {
+  const TransactionsRoute({List<PageRouteInfo>? children})
+      : super(
+          TransactionsRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'TransactionsRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const TransactionsView();
+    },
+  );
 }
 
 /// generated route for

@@ -13,4 +13,8 @@ class AccountViewModel extends BaseViewModel {
       router.replace(WelcomeRoute());
     });
   }
+
+  void navigateToTransactions() {
+    router.push(TransactionTab());
+  }
 }

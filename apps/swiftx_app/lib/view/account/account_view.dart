@@ -15,13 +15,8 @@ class AccountView extends StatelessWidget {
           final model = context.watch<AccountViewModel>();
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: Colors.transparent,
               elevation: 0,
-              title: Text(
-                'My Profile',
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-              ),
+              title: Text('Account', style: TextStyle(color: Colors.black)),
               centerTitle: true,
             ),
             body: Padding(
@@ -75,10 +70,12 @@ class AccountView extends StatelessWidget {
                         ListTile(
                           leading:
                               Icon(Icons.receipt_long, color: Colors.grey[700]),
-                          title: Text('Transaction'),
+                          title: Text('Transactions'),
                           trailing: Icon(Icons.arrow_forward_ios,
                               size: 16, color: Colors.grey[700]),
-                          onTap: () {},
+                          onTap: () {
+                            model.navigateToTransactions();
+                          },
                         ),
                         ListTile(
                           leading:

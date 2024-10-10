@@ -43,10 +43,7 @@ class AppWrapper extends StatelessWidget {
                       label: 'Home',
                     ),
                     BottomNavigationBarItem(
-                      icon: AppIcon(icon: AppIcons.exchange),
-                      activeIcon: AppIcon(
-                          icon: AppIcons.exchange,
-                          color: Theme.of(context).primaryColor),
+                      icon: Icon(Icons.notifications_active),
                       label: 'Exchange',
                     ),
                     BottomNavigationBarItem(

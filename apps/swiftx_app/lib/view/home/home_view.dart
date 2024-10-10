@@ -36,7 +36,7 @@ class HomeView extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 10),
                   title: "Send",
                   onTap: () {
-                    context.router.push(ChooseRoute());
+                    context.router.push(ChooseRoute(isIncome: false));
                   },
                 ),
               ),
@@ -46,7 +46,9 @@ class HomeView extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 10),
                   icon: AppIcons.money_receive,
                   title: "Request",
-                  onTap: () {},
+                  onTap: () {
+                    context.router.push(ChooseRoute(isIncome: true));
+                  },
                 ),
               )
             ],

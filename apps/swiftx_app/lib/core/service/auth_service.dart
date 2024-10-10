@@ -8,10 +8,12 @@ class AuthService {
     required String email,
     required String phone,
     required String name,
+    required String username,
   }) async {
     return await supabase.auth.signUp(email: email, password: password, data: {
       'name': name,
       'phone': phone,
+      'username': username,
     });
   }
 
@@ -20,6 +22,12 @@ class AuthService {
       email: email,
       password: password,
     );
+  }
+
+  Future<bool> checkUsername(String username) async {
+    final response =
+        await supabase.from("users").select().eq("username", username);
+    return response.length > 0;
   }
 
   Future<void> signOut() async {

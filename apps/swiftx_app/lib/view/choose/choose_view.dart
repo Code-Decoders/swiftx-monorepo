@@ -1,9 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:swiftx_app/core/app_router.dart';
 
 @RoutePage()
 class ChooseView extends StatelessWidget {
-  const ChooseView({super.key});
+  final bool isIncome;
+  const ChooseView({super.key, required this.isIncome});
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +51,7 @@ class ChooseView extends StatelessWidget {
                 itemCount: 5,
                 itemBuilder: (context, index) {
                   return ListTile(
+                    onTap: () => {context.router.push(SendRequestRoute(isIncome: isIncome))},
                     leading: CircleAvatar(
                       backgroundImage: NetworkImage(
                           'https://via.placeholder.com/150'), // Replace with actual image URL

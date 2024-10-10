@@ -17,6 +17,9 @@ class SignUpViewModel extends BaseViewModel {
   String _phone = '';
   String get phone => _phone;
 
+  String _username = '';
+  String get username => _username;
+
   String _country = '';
 
   final authService = locator<AuthService>();
@@ -44,11 +47,23 @@ class SignUpViewModel extends BaseViewModel {
     notifyListeners();
   }
 
+  void setUsername(String value) {
+    _username = value;
+    notifyListeners();
+  }
+
   String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
       return 'Email is required';
     } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
       return 'Invalid email format';
+    }
+    return null;
+  }
+
+  String? validateUsername(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Username is required';
     }
     return null;
   }
@@ -89,12 +104,18 @@ class SignUpViewModel extends BaseViewModel {
 
   Future<void> signUp() async {
     setBusyAndNotify(true);
+    await authService.checkUsername(_username).then((response) {
+      if (response) {
+        throw Exception('Username already exists');
+      }
+    });
     await authService
         .signUpUser(
       email: _email,
       password: _password,
       name: _name,
       phone: _phone,
+      username: _username,
     )
         .then((response) {
       setBusyAndNotify(false);

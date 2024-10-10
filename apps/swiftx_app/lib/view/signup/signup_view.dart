@@ -35,6 +35,18 @@ class SignUpView extends StatelessWidget {
                     style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                   ),
                   SizedBox(height: 30),
+                  TextFormField(
+                    onChanged: model.setUsername,
+                    validator: model.validateUsername,
+                    decoration: InputDecoration(
+                      labelText: 'Username',
+                      prefixIcon: Icon(Icons.person),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 20),
                   // Name TextField
                   TextFormField(
                     onChanged: model.setName,

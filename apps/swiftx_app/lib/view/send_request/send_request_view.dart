@@ -1,19 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:swiftx_app/widget/button/app_button.dart';
 
 @RoutePage()
-class SendView extends StatelessWidget {
-  const SendView({super.key});
+class SendRequestView extends StatelessWidget {
+  final bool isIncome;
+  const SendRequestView({super.key, required this.isIncome});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.grey[200],
-        elevation: 0,
-        title: Text('Send', style: TextStyle(color: Colors.black)),
-        centerTitle: true,
-      ),
+      appBar: AppBar(),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
@@ -94,19 +91,8 @@ class SendView extends StatelessWidget {
               ),
             ),
             SizedBox(height: 20),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).primaryColor,
-                minimumSize: Size(double.infinity, 50),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-              ),
-              onPressed: () {
-                // Exchange button action
-              },
-              child: Text('CONFIRM', style: TextStyle(color: Colors.white)),
-            ),
+            AppButton.primary(
+                title: isIncome ? "Request" : "Send", onTap: () {}),
           ],
         ),
       ),

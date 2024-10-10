@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:swiftx_app/core/app_router.dart';
 import 'package:swiftx_app/widget/icons/icon.dart';
+import 'package:auto_route/auto_route.dart';
 
 class TransactionCard extends StatelessWidget {
   final String title;
@@ -18,6 +20,9 @@ class TransactionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      onTap: () {
+        context.router.push(TransactionDetailRoute(id: 1));
+      },
       leading: CircleAvatar(
         backgroundColor: isIncome ? Colors.green : Colors.orange,
         child: AppIcon(
@@ -38,7 +43,7 @@ class TransactionCard extends StatelessWidget {
       trailing: Text(
         isIncome ? '+ AED $amount' : '- AED $amount',
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: Colors.redAccent,
+              color: isIncome ? Colors.greenAccent : Colors.redAccent,
               fontWeight: FontWeight.bold,
             ),
       ),
