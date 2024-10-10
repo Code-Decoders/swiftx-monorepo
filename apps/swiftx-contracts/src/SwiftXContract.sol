@@ -2,6 +2,7 @@
 pragma solidity ^0.8.13;
 
 import "@openzeppelin/contracts/access/Ownable.sol";
+import "../lib/wormhole-solidity-sdk/src/WormholeRelayerSDK.sol";
 
 /**
  * @title SwiftX
@@ -33,10 +34,12 @@ contract SwiftX is TokenReceiver, Ownable {
      */
     constructor(address _wormholeRelayer, address _tokenBridge, address _wormhole)
     TokenBase(_wormholeRelayer, _tokenBridge, _wormhole)
+    Ownable(msg.sender)
     {
         require(_wormholeRelayer != address(0), "Invalid Wormhole Relayer address");
         require(_tokenBridge != address(0), "Invalid Token Bridge address");
         require(_wormhole != address(0), "Invalid Wormhole address");
+
     }
 
     /**
@@ -46,14 +49,13 @@ contract SwiftX is TokenReceiver, Ownable {
      * @param receivedTokens Array of tokens received.
      * @param sourceAddress Address of the sender contract on the source chain.
      * @param sourceChain Chain ID of the source chain.
-     * @param deliveryHash Delivery hash (not used in this implementation).
      */
     function receivePayloadAndTokens(
         bytes memory payload,
         TokenReceived[] memory receivedTokens,
         bytes32 sourceAddress,
         uint16 sourceChain,
-        bytes32 /* deliveryHash */
+        bytes32
     ) internal override onlyWormholeRelayer isRegisteredSender(sourceChain, sourceAddress) {
         require(receivedTokens.length == 1, "Expected 1 token transfer");
 

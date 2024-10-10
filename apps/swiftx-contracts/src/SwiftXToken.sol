@@ -2,7 +2,7 @@
 pragma solidity ^0.8.13;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./lib/wormhole-solidity-sdk/src/WormholeRelayerSDK.sol";
+import "../lib/wormhole-solidity-sdk/src/WormholeRelayerSDK.sol";
 
 /**
  * @title SwiftXToken
@@ -14,32 +14,33 @@ contract SwiftXToken is ERC20, Ownable, TokenSender, TokenReceiver {
     uint8 public tokenId;
 
     // Event declarations
-    event TokensBurned(address indexed burner, uint256 amount, uint64 nonce);
-    event TokensMinted(address indexed recipient, uint256 amount, uint8 tokenId, uint64 nonce);
+    event TokensBurned(address indexed burner, uint256 amount);
+    event TokensMinted(address indexed recipient, uint256 amount, uint8 tokenId);
+    
+    uint256 GAS_LIMIT = 250_000;
 
     /**
      * @dev Initializes the token with Wormhole parameters.
      * @param name_ Token name.
      * @param symbol_ Token symbol.
-     * @param _tokenId Unique identifier for the token.
      * @param _wormholeRelayer Address of the deployed Wormhole Relayer contract.
      * @param _tokenBridge Address of the deployed Token Bridge contract.
      * @param _wormhole Address of the deployed Wormhole contract.
      * @param _parentContract Address of the SwiftX parent contract on the parent chain.
-     * @param _parentChainId Chain ID of the parent chain.
      */
 
     constructor(
         string memory name_,
         string memory symbol_,
-        uint8 _tokenId,
+        uint8,
         address _wormholeRelayer,
         address _tokenBridge,
         address _wormhole,
         address _parentContract,
-        uint16 _parentChainId
+        uint16 
     )
         ERC20(name_, symbol_)
+        Ownable(msg.sender)
         TokenBase(_wormholeRelayer, _tokenBridge, _wormhole)
     {
         require(_wormholeRelayer != address(0), "Invalid Wormhole Relayer address");
@@ -55,14 +56,13 @@ contract SwiftXToken is ERC20, Ownable, TokenSender, TokenReceiver {
      * @param receivedTokens Array of tokens received.
      * @param sourceAddress Address of the sender contract on the source chain.
      * @param sourceChain Chain ID of the source chain.
-     * @param deliveryHash Delivery hash (not used in this implementation).
      */
     function receivePayloadAndTokens(
         bytes memory payload,
         TokenReceived[] memory receivedTokens,
         bytes32 sourceAddress,
         uint16 sourceChain,
-        bytes32 /* deliveryHash */
+        bytes32
     ) internal override onlyWormholeRelayer isRegisteredSender(sourceChain, sourceAddress) {
         require(receivedTokens.length == 1, "Expected 1 token transfer");
 
@@ -77,21 +77,18 @@ contract SwiftXToken is ERC20, Ownable, TokenSender, TokenReceiver {
         // Mint tokens to the recipient
         _mint(recipient, amount);
 
-        // Emit events for off-chain tracking
-        emit TokensMinted(recipient, amount, currentNonce);
+
     }
 
     /**
      * @notice Burns tokens from the caller's account and notifies the parent contract via Wormhole.
      * @param amount Amount of tokens to burn.
      */
-    function sendCrossChainDeposit(uint256 amount) external nonReentrant {
+    function sendCrossChainDeposit(uint256 amount) public {
         require(amount > 0, "Amount must be greater than zero");
         require(balanceOf(msg.sender) >= amount, "Insufficient balance to burn");
 
-        uint256 cost = quoteCrossChainDepost(targetChain);
-
-        require(msg.value >= cost, 'Insufficient balance to burn');
+        uint256 cost = quoteCrossChainDeposit(parentChainId);
 
         _mint(address(this), amount);
 
@@ -101,9 +98,14 @@ contract SwiftXToken is ERC20, Ownable, TokenSender, TokenReceiver {
             msg.sender
         );
 
-        uint256 gasLimit = 250_000;
 
-        sendMessage(parentChainId, parentContract, payload);
+        wormholeRelayer.sendPayloadToEvm{value: cost}(
+            parentChainId,
+            parentContract,
+            payload,
+            0,
+            GAS_LIMIT
+        );
 
         // uint64 nonce = sendTokenWithPayloadToEvm(
         //     targetChain,
@@ -117,28 +119,6 @@ contract SwiftXToken is ERC20, Ownable, TokenSender, TokenReceiver {
 
         // require(nonce != 0, "Wormhole sendTokenWithPayloadToEvm failed");
 
-        emit TokensMinted(parentContract, amount, nonce);
-    }
-
-    function sendMessage(
-        uint16 targetChain,
-        address targetAddress,
-        bytes memory message
-    ) external payable {
-        uint256 cost = quoteCrossChainCost(targetChain);
-
-        require(
-            msg.value >= cost,
-            "Insufficient funds for cross-chain delivery"
-        );
-
-        wormholeRelayer.sendPayloadToEvm{value: cost}(
-            targetChain,
-            targetAddress,
-            message,
-            0,
-            GAS_LIMIT
-        );
     }
 
     function burnForExchange(address erc20Address, uint256 amount) external onlyOwner {
@@ -152,9 +132,18 @@ contract SwiftXToken is ERC20, Ownable, TokenSender, TokenReceiver {
             msg.sender
         );
 
-        sendMessage(parentChainId, parentContract, payload);
+        uint256 cost = quoteCrossChainDeposit(parentChainId);
 
-        emit TokensBurned(erc20Address, amount, -1);
+
+        wormholeRelayer.sendPayloadToEvm{value: cost}(
+            parentChainId,
+            parentContract,
+            payload,
+            0,
+            GAS_LIMIT
+        );
+
+        emit TokensBurned(erc20Address, amount);
     }
 
     /**
@@ -165,7 +154,7 @@ contract SwiftXToken is ERC20, Ownable, TokenSender, TokenReceiver {
      */
     function mintTokens(address recipient, uint256 amount) external onlyOwner {
         _mint(recipient, amount);
-        emit TokensMinted(recipient, amount, tokenId, currentNonce);
+        emit TokensMinted(recipient, amount, tokenId);
     }
 
     /**

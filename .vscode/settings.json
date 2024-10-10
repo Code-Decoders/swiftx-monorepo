@@ -6,5 +6,8 @@
         "editor.defaultFormatter": "JuanBlanco.solidity"
     },
     "solidity.formatter": "forge",
-    "solidity.compileUsingRemoteVersion": "v0.8.17"
+    "solidity.compileUsingRemoteVersion": "v0.8.20",
+    "solidity.remappings": [
+        "@openzeppelin/=project/contracts/lib/openzeppelin-contracts/"
+    ]
 }
