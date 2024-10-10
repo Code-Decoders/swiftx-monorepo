@@ -6,6 +6,7 @@ import 'package:swiftx_app/core/service/auth_service.dart';
 import 'package:swiftx_app/view/account/account_view.dart';
 import 'package:swiftx_app/view/choose/choose_view.dart';
 import 'package:swiftx_app/view/home/home_view.dart';
+import 'package:swiftx_app/view/kyc/kyc_view.dart';
 import 'package:swiftx_app/view/login/login_view.dart';
 import 'package:swiftx_app/view/send/send_view.dart';
 import 'package:swiftx_app/view/signup/signup_view.dart';
@@ -27,6 +28,7 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: WelcomeRoute.page),
         AutoRoute(page: LoginRoute.page),
         AutoRoute(page: SignUpRoute.page),
+        AutoRoute(page: KycRoute.page),
         AutoRoute(page: AppRoute.page, initial: true, children: [
           AutoRoute(page: HomeTab.page, path: 'home', children: [
             AutoRoute(page: HomeRoute.page, initial: true),
@@ -62,7 +64,7 @@ class AuthGuard extends AutoRouteGuard {
         resolver.next();
       }
     } else {
-      if ([WelcomeRoute.name, LoginRoute.name, SignUpRoute.name]
+      if ([WelcomeRoute.name, LoginRoute.name, SignUpRoute.name, KycRoute.name]
           .contains(resolver.route.name)) {
         resolver.next();
       } else {

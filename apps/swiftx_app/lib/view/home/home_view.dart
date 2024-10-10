@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftx_app/core/app_router.dart';
+import 'package:swiftx_app/widget/button/app_button.dart';
 import 'package:swiftx_app/widget/card/credit_card.dart';
 import 'package:swiftx_app/widget/card/transaction_card.dart';
 import 'package:swiftx_app/widget/icons/icon.dart';
@@ -30,71 +31,22 @@ class HomeView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Expanded(
-                child: Material(
-                  color: Theme.of(context).primaryColor,
-                  borderRadius: BorderRadius.circular(15),
-                  child: InkWell(
-                    onTap: () {
-                      context.router.push(ChooseRoute());
-                    },
-                    borderRadius: BorderRadius.circular(15),
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AppIcon(
-                            icon: AppIcons.money_send,
-                            size: 30,
-                            color: Colors.white,
-                          ),
-                          const SizedBox(width: 10),
-                          Text("Send",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(color: Colors.white)),
-                        ],
-                      ),
-                    ),
-                  ),
+                child: AppButton.primary(
+                  icon: AppIcons.money_send,
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  title: "Send",
+                  onTap: () {
+                    context.router.push(ChooseRoute());
+                  },
                 ),
               ),
               const SizedBox(width: 20),
               Expanded(
-                child: Material(
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  borderRadius: BorderRadius.circular(15),
-                  child: InkWell(
-                    onTap: () {},
-                    borderRadius: BorderRadius.circular(15),
-                    child: Container(
-                      padding: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Theme.of(context).primaryColor,
-                        ),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          AppIcon(
-                            icon: AppIcons.money_receive,
-                            size: 30,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                          const SizedBox(width: 10),
-                          Text("Request",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                      color: Theme.of(context).primaryColor)),
-                        ],
-                      ),
-                    ),
-                  ),
+                child: AppButton.secondary(
+                  padding: EdgeInsets.symmetric(vertical: 10),
+                  icon: AppIcons.money_receive,
+                  title: "Request",
+                  onTap: () {},
                 ),
               )
             ],

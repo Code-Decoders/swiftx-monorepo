@@ -7,12 +7,15 @@ class AppButton extends StatelessWidget {
   final AppIcons? icon;
   final String title;
   final GestureTapCallback? onTap;
+  final EdgeInsetsGeometry? padding;
   late ButtonType type;
-  AppButton.primary({super.key, this.icon, required this.title, this.onTap}) {
+  AppButton.primary(
+      {super.key, this.icon, required this.title, this.onTap, this.padding}) {
     type = ButtonType.primary;
   }
 
-  AppButton.secondary({super.key, this.icon, required this.title, this.onTap}) {
+  AppButton.secondary(
+      {super.key, this.icon, required this.title, this.onTap, this.padding}) {
     type = ButtonType.secondary;
   }
 
@@ -35,8 +38,10 @@ class AppButton extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(8),
           ),
-          padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-          child: Column(
+          padding: padding ??
+              const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               if (icon != null) ...[
                 AppIcon(
@@ -46,7 +51,7 @@ class AppButton extends StatelessWidget {
                       ? Colors.white
                       : Theme.of(context).primaryColor,
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(width: 10),
               ],
               Text(
                 title,

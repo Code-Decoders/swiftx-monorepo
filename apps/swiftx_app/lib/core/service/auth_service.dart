@@ -26,6 +26,14 @@ class AuthService {
     return await supabase.auth.signOut();
   }
 
+  Future<void> verifyUser() async {
+    final user = supabase.auth.currentUser;
+    return await supabase.from("users").update({"verified": true}).eq(
+      "email",
+      user!.email!,
+    );
+  }
+
   bool isUserSignedIn() {
     return supabase.auth.currentUser != null;
   }

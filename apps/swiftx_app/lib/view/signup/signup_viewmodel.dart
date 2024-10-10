@@ -17,6 +17,8 @@ class SignUpViewModel extends BaseViewModel {
   String _phone = '';
   String get phone => _phone;
 
+  String _country = '';
+
   final authService = locator<AuthService>();
 
   final router = locator<AppRouter>();
@@ -38,6 +40,7 @@ class SignUpViewModel extends BaseViewModel {
 
   void setPhone(PhoneNumber value) {
     _phone = value.phoneNumber!;
+    _country = value.isoCode!;
     notifyListeners();
   }
 
@@ -69,8 +72,7 @@ class SignUpViewModel extends BaseViewModel {
   String? validatePhone(String? value) {
     if (value == null || value.isEmpty) {
       return 'Phone number is required';
-    }
-    else if (value.length < 10) {
+    } else if (value.length < 10) {
       return 'Phone number must be at least 10 characters';
     }
     return null;
@@ -97,7 +99,7 @@ class SignUpViewModel extends BaseViewModel {
         .then((response) {
       setBusyAndNotify(false);
       if (response.user != null) {
-        router.replace(AppRoute());
+        router.push(KycRoute(country: _country));
       } else {
         throw Exception('Invalid email or password');
       }

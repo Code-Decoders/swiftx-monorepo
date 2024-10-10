@@ -86,6 +86,52 @@ class HomeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [KycView]
+class KycRoute extends PageRouteInfo<KycRouteArgs> {
+  KycRoute({
+    Key? key,
+    required String country,
+    List<PageRouteInfo>? children,
+  }) : super(
+          KycRoute.name,
+          args: KycRouteArgs(
+            key: key,
+            country: country,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'KycRoute';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<KycRouteArgs>();
+      return KycView(
+        key: args.key,
+        country: args.country,
+      );
+    },
+  );
+}
+
+class KycRouteArgs {
+  const KycRouteArgs({
+    this.key,
+    required this.country,
+  });
+
+  final Key? key;
+
+  final String country;
+
+  @override
+  String toString() {
+    return 'KycRouteArgs{key: $key, country: $country}';
+  }
+}
+
+/// generated route for
 /// [LoginView]
 class LoginRoute extends PageRouteInfo<LoginRouteArgs> {
   LoginRoute({
