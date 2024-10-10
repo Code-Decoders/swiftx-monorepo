@@ -1,3 +1,4 @@
+import 'package:swiftx_app/core/model/user_model.dart';
 import 'package:swiftx_app/core/supabase.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -24,6 +25,13 @@ class AuthService {
       email: email,
       password: password,
     );
+  }
+
+  Future<UserModel> getUserData({String? email}) async {
+    final user = supabase.auth.currentUser;
+    final response =
+        await supabase.from("users").select().eq("email", email ?? user!.email!).single();
+    return UserModel.fromMap(response);
   }
 
   Future<bool> checkUsername(String username) async {

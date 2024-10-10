@@ -13,6 +13,10 @@ class AccountView extends StatelessWidget {
         create: (_) => AccountViewModel(),
         builder: (context, _) {
           final model = context.watch<AccountViewModel>();
+
+          if (model.busy) {
+            return const Center(child: CircularProgressIndicator());
+          }
           return Scaffold(
             appBar: AppBar(
               elevation: 0,
@@ -35,21 +39,25 @@ class AccountView extends StatelessWidget {
                       children: [
                         CircleAvatar(
                           radius: 40,
-                          backgroundImage: NetworkImage(
-                              'https://via.placeholder.com/150'), // Replace with actual image URL
+                          child: Text(model.user.name[0],
+                              style: Theme.of(context).textTheme.displayMedium),
                         ),
                         SizedBox(height: 10),
                         Text(
-                          'Mehedi Hasan',
+                          model.user.name,
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          'helloyouthmind@gmail.com',
+                          "@" + model.user.username,
                           style: TextStyle(color: Colors.grey),
                         ),
                         Text(
-                          '+8801995867406',
+                          model.user.email,
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        Text(
+                          model.user.phone,
                           style: TextStyle(color: Colors.grey),
                         ),
                       ],
