@@ -1,19 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --primary: #304fff;
+  --primary-light: #5f7fff;
+  --primary-dark: #0019ff;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.color-primary {
+  color: var(--primary);
 }
 
 html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+}
+
+.filter {
+  filter: grayscale(1);
 }
 
 body {
@@ -35,8 +47,3 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
