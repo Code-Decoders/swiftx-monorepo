@@ -4,8 +4,6 @@ import { dwClient } from "@/lib/initDevWallet";
 export async function POST(req: NextRequest) {
   const name = await req.json();
 
-  console.log(name);
-
   try {
     console.log("Creating wallet set");
 
