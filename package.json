@@ -16,6 +16,7 @@
     "lint:nextjs": "yarn workspace nextjs-api-server lint"
   },
   "dependencies": {
+    "@circle-fin/smart-contract-platform": "^4.3.0",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "ethers": "^6.13.3"
