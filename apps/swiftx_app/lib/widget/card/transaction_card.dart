@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:swiftx_app/core/app_router.dart';
+import 'package:swiftx_app/core/model/transaction_model.dart';
 import 'package:swiftx_app/widget/icons/icon.dart';
 import 'package:auto_route/auto_route.dart';
 
 class TransactionCard extends StatelessWidget {
   final String title;
   final String description;
-  final double amount;
+  final String amount;
   final bool isIncome;
+  final String currency;
+  final TransactionModel transaction;
 
   const TransactionCard({
     Key? key,
@@ -15,13 +18,14 @@ class TransactionCard extends StatelessWidget {
     required this.description,
     required this.amount,
     required this.isIncome,
+    required this.currency, required this.transaction,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        context.router.push(TransactionDetailRoute(id: 1));
+        context.router.push(TransactionDetailRoute(transaction: transaction));
       },
       leading: CircleAvatar(
         backgroundColor: isIncome ? Colors.green : Colors.orange,
@@ -38,10 +42,12 @@ class TransactionCard extends StatelessWidget {
       ),
       subtitle: Text(
         description,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         style: Theme.of(context).textTheme.bodyMedium,
       ),
       trailing: Text(
-        isIncome ? '+ AED $amount' : '- AED $amount',
+        isIncome ? '+ ${currency} $amount' : '- ${currency} $amount',
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: isIncome ? Colors.greenAccent : Colors.redAccent,
               fontWeight: FontWeight.bold,

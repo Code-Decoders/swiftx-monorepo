@@ -198,13 +198,13 @@ class LoginRouteArgs {
 class RequestDetailRoute extends PageRouteInfo<RequestDetailRouteArgs> {
   RequestDetailRoute({
     Key? key,
-    required String requestId,
+    required RequestModel request,
     List<PageRouteInfo>? children,
   }) : super(
           RequestDetailRoute.name,
           args: RequestDetailRouteArgs(
             key: key,
-            requestId: requestId,
+            request: request,
           ),
           initialChildren: children,
         );
@@ -217,7 +217,7 @@ class RequestDetailRoute extends PageRouteInfo<RequestDetailRouteArgs> {
       final args = data.argsAs<RequestDetailRouteArgs>();
       return RequestDetailView(
         key: args.key,
-        requestId: args.requestId,
+        request: args.request,
       );
     },
   );
@@ -226,16 +226,16 @@ class RequestDetailRoute extends PageRouteInfo<RequestDetailRouteArgs> {
 class RequestDetailRouteArgs {
   const RequestDetailRouteArgs({
     this.key,
-    required this.requestId,
+    required this.request,
   });
 
   final Key? key;
 
-  final String requestId;
+  final RequestModel request;
 
   @override
   String toString() {
-    return 'RequestDetailRouteArgs{key: $key, requestId: $requestId}';
+    return 'RequestDetailRouteArgs{key: $key, request: $request}';
   }
 }
 
@@ -264,12 +264,16 @@ class SendRequestRoute extends PageRouteInfo<SendRequestRouteArgs> {
   SendRequestRoute({
     Key? key,
     required bool isIncome,
+    required UserModel recipient,
+    required String countryCode,
     List<PageRouteInfo>? children,
   }) : super(
           SendRequestRoute.name,
           args: SendRequestRouteArgs(
             key: key,
             isIncome: isIncome,
+            recipient: recipient,
+            countryCode: countryCode,
           ),
           initialChildren: children,
         );
@@ -283,6 +287,8 @@ class SendRequestRoute extends PageRouteInfo<SendRequestRouteArgs> {
       return SendRequestView(
         key: args.key,
         isIncome: args.isIncome,
+        recipient: args.recipient,
+        countryCode: args.countryCode,
       );
     },
   );
@@ -292,15 +298,21 @@ class SendRequestRouteArgs {
   const SendRequestRouteArgs({
     this.key,
     required this.isIncome,
+    required this.recipient,
+    required this.countryCode,
   });
 
   final Key? key;
 
   final bool isIncome;
 
+  final UserModel recipient;
+
+  final String countryCode;
+
   @override
   String toString() {
-    return 'SendRequestRouteArgs{key: $key, isIncome: $isIncome}';
+    return 'SendRequestRouteArgs{key: $key, isIncome: $isIncome, recipient: $recipient, countryCode: $countryCode}';
   }
 }
 
@@ -344,13 +356,13 @@ class SignUpRouteArgs {
 class TransactionDetailRoute extends PageRouteInfo<TransactionDetailRouteArgs> {
   TransactionDetailRoute({
     Key? key,
-    required int id,
+    required TransactionModel transaction,
     List<PageRouteInfo>? children,
   }) : super(
           TransactionDetailRoute.name,
           args: TransactionDetailRouteArgs(
             key: key,
-            id: id,
+            transaction: transaction,
           ),
           initialChildren: children,
         );
@@ -363,7 +375,7 @@ class TransactionDetailRoute extends PageRouteInfo<TransactionDetailRouteArgs> {
       final args = data.argsAs<TransactionDetailRouteArgs>();
       return TransactionDetailView(
         key: args.key,
-        id: args.id,
+        transaction: args.transaction,
       );
     },
   );
@@ -372,16 +384,16 @@ class TransactionDetailRoute extends PageRouteInfo<TransactionDetailRouteArgs> {
 class TransactionDetailRouteArgs {
   const TransactionDetailRouteArgs({
     this.key,
-    required this.id,
+    required this.transaction,
   });
 
   final Key? key;
 
-  final int id;
+  final TransactionModel transaction;
 
   @override
   String toString() {
-    return 'TransactionDetailRouteArgs{key: $key, id: $id}';
+    return 'TransactionDetailRouteArgs{key: $key, transaction: $transaction}';
   }
 }
 

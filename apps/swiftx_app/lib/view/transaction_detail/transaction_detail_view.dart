@@ -1,29 +1,27 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:swiftx_app/core/app_utils.dart';
+import 'package:swiftx_app/core/application_viewmodel.dart';
+import 'package:swiftx_app/core/model/transaction_model.dart';
 import 'package:swiftx_app/widget/button/app_button.dart';
+import 'package:intl/intl.dart';
 
 @RoutePage()
 class TransactionDetailView extends StatelessWidget {
-  final int id;
-  const TransactionDetailView({super.key, required this.id});
-// Sample data for the transaction details
-  final String transactionAmount = '\$150.00';
-  final String transactionDate = 'September 10, 2024';
-  final String transactionStatus = 'Completed';
-  final String paymentMethod = 'Credit Card •••• 1234';
-  final String transactionID = 'TXN1234567890';
-  final String summary = 'Payment for services rendered on September 2024.';
-
+  final TransactionModel transaction;
+  const TransactionDetailView({super.key, required this.transaction});
   @override
   Widget build(BuildContext context) {
+    final user = context.watch<ApplicationViewModel>().user;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Transaction Details'),
+        title: const Text('Transaction Details'),
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        iconTheme: IconThemeData(color: Colors.black),
-        titleTextStyle: TextStyle(
+        iconTheme: const IconThemeData(color: Colors.black),
+        titleTextStyle: const TextStyle(
           color: Colors.black,
           fontWeight: FontWeight.bold,
           fontSize: 20,
@@ -37,44 +35,45 @@ class TransactionDetailView extends StatelessWidget {
             // Transaction Amount
             Center(
               child: Text(
-                transactionAmount,
+                "${user.country == "UAE" ? "AED" : "SGD"} ${transaction.amount.toCurrency(countryCode: user.country)}",
                 style: TextStyle(
                     fontSize: 36,
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).primaryColor),
               ),
             ),
-            SizedBox(height: 10),
-            Center(
+            const SizedBox(height: 10),
+            const Center(
               child: Text(
-                transactionStatus,
+                "Completed",
                 style: TextStyle(
                   fontSize: 16,
-                  color: transactionStatus == 'Completed'
-                      ? Colors.green
-                      : Colors.red,
+                  color: Colors.green,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             // Transaction Details
-            buildDetailRow('Date', transactionDate),
+            buildDetailRow(
+                'Date',
+                DateFormat("MMMM dd, yyyy H:mm:ss")
+                    .format(transaction.created_at)),
             // buildDetailRowWithIcon(
             //     context, 'Payment Method', paymentMethod, Icons.credit_card),
-            buildDetailRow('Transaction ID', transactionID),
-            SizedBox(height: 20),
-            // Summary
-            Text(
-              'Summary',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 8),
-            Text(
-              summary,
-              style: TextStyle(fontSize: 16, color: Colors.grey[700]),
-            ),
-            Spacer(),
+            buildDetailRow('Transaction ID',
+                "TXN${transaction.id.toString().padLeft(10, "0")}"),
+            buildDetailRow(
+                "${user.id == transaction.sender_id ? "Receiver Name" : "Sender Name"}",
+                user.id == transaction.sender_id
+                    ? transaction.receiver.name
+                    : transaction.sender.name),
+            buildDetailRow(
+                "${user.id == transaction.sender_id ? "Receiver Email" : "Sender Email"}",
+                user.id == transaction.sender_id
+                    ? transaction.receiver.email
+                    : transaction.sender.email),
+            const Spacer(),
             // Back to Home Button
             AppButton.primary(
               title: 'Back to Home',
@@ -82,7 +81,7 @@ class TransactionDetailView extends StatelessWidget {
                 context.router.maybePop();
               },
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),
@@ -102,7 +101,7 @@ class TransactionDetailView extends StatelessWidget {
           ),
           Text(
             detail,
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
           ),
         ],
       ),
@@ -124,10 +123,11 @@ class TransactionDetailView extends StatelessWidget {
           Row(
             children: [
               Icon(icon, color: Theme.of(context).primaryColor, size: 20),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Text(
                 detail,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
               ),
             ],
           ),

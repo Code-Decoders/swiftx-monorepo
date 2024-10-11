@@ -1,4 +1,6 @@
+import 'package:swiftx_app/core/app_locator.dart';
 import 'package:swiftx_app/core/model/user_model.dart';
+import 'package:swiftx_app/core/service/auth_service.dart';
 import 'package:swiftx_app/core/supabase.dart';
 
 class RecipientService {
@@ -10,11 +12,12 @@ class RecipientService {
   }
 
   Future<List<UserModel>> searchRecipients(String query) async {
-    final user = supabase.auth.currentUser;
+    final user = await locator<AuthService>().getUserData();
     final response = await supabase
         .from("users")
         .select()
-        .neq("email", user!.email!)
+        .neq("email", user.email)
+        .neq("country", user.country)
         .or('username.ilike.$query%,email.ilike.%$query%,name.ilike.%$query%');
     return response.map((e) => UserModel.fromMap(e)).toList();
   }

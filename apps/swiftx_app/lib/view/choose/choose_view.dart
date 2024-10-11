@@ -55,8 +55,8 @@ class ChooseView extends StatelessWidget {
                             itemBuilder: (context, index) {
                               return ListTile(
                                 onTap: () => {
-                                  context.router.push(
-                                      SendRequestRoute(isIncome: isIncome))
+                                  model.navigateToRecipient(
+                                      model.recipients[index], isIncome)
                                 },
                                 leading: CircleAvatar(
                                   child: Text(model.recipients[index].name[0]),

@@ -2,6 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:swiftx_app/app_wrapper.dart';
 import 'package:swiftx_app/core/app_locator.dart';
+import 'package:swiftx_app/core/model/request_model.dart';
+import 'package:swiftx_app/core/model/transaction_model.dart';
+import 'package:swiftx_app/core/model/user_model.dart';
 import 'package:swiftx_app/core/service/auth_service.dart';
 import 'package:swiftx_app/view/account/account_view.dart';
 import 'package:swiftx_app/view/choose/choose_view.dart';
@@ -34,20 +37,39 @@ class AppRouter extends RootStackRouter {
         AutoRoute(page: SignUpRoute.page),
         AutoRoute(page: KycRoute.page),
         AutoRoute(page: AppRoute.page, initial: true, children: [
-          AutoRoute(page: HomeTab.page, path: 'home', children: [
-            AutoRoute(page: HomeRoute.page, initial: true),
-            AutoRoute(page: SendRequestRoute.page, path: 'send'),
-            AutoRoute(page: ChooseRoute.page, path: 'choose'),
-            AutoRoute(page: TransactionDetailRoute.page)
-          ]),
-          AutoRoute(page: ExchangeTab.page, path: 'exchange', children: [
-            AutoRoute(page: RequestRoute.page, initial: true),
-            AutoRoute(page: RequestDetailRoute.page)
-          ]),
-          AutoRoute(page: TransactionTab.page, path: 'transaction', children: [
-            AutoRoute(page: TransactionsRoute.page, initial: true),
-            AutoRoute(page: TransactionDetailRoute.page)
-          ]),
+          AutoRoute(
+              page: HomeTab.page,
+              path: 'home',
+              maintainState: false,
+              children: [
+                AutoRoute(
+                    page: HomeRoute.page, initial: true, maintainState: false),
+                AutoRoute(page: SendRequestRoute.page, path: 'send'),
+                AutoRoute(page: ChooseRoute.page, path: 'choose'),
+                AutoRoute(page: TransactionDetailRoute.page)
+              ]),
+          AutoRoute(
+              page: ExchangeTab.page,
+              path: 'exchange',
+              maintainState: false,
+              children: [
+                AutoRoute(
+                    page: RequestRoute.page,
+                    initial: true,
+                    maintainState: false),
+                AutoRoute(page: RequestDetailRoute.page)
+              ]),
+          AutoRoute(
+              page: TransactionTab.page,
+              path: 'transaction',
+              maintainState: false,
+              children: [
+                AutoRoute(
+                    page: TransactionsRoute.page,
+                    initial: true,
+                    maintainState: false),
+                AutoRoute(page: TransactionDetailRoute.page)
+              ]),
           AutoRoute(page: ProfileTab.page, path: 'profile', children: [
             AutoRoute(page: AccountRoute.page, initial: true),
           ]),
