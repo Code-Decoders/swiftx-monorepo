@@ -1,12 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { dwClient } from "@/lib/initDevWallet";
 
-export async function GET(req: NextRequest) {
-  const searchParams = req.nextUrl.searchParams;
-
-  const name = searchParams.get("name") ?? "";
-
-  console.log(name);
+export async function POST(req: NextRequest) {
+  const name = await req.json();
 
   try {
     console.log("Creating wallet set");
