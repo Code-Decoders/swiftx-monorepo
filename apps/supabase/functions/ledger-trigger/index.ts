@@ -30,7 +30,7 @@ const swiftXAPICall = async (
   return response.json();
 };
 
-const createWallet = async () => {
+const createWallet = async (email: string) => {
   const response = await fetch(
     "https://swiftx-nextjs.vercel.app/api/wallet",
     {
@@ -38,6 +38,7 @@ const createWallet = async () => {
       headers: {
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({ name: email }),
     },
   );
   return await response.json();
@@ -50,7 +51,7 @@ Deno.serve(async (req) => {
   console.log(operation);
   switch (operation) {
     case "users:INSERT": {
-      const response = await createWallet();
+      const response = await createWallet(payload.record.email);
       const { data, error } = await supabaseClient.from("users").update({
         metadata: response,
       }).eq("id", payload.record.id);
