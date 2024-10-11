@@ -16,7 +16,6 @@ class TransactionsViewModel extends BaseViewModel {
 
   final transactionService = locator<TransactionService>();
   TransactionsViewModel() {
-    print("TransactionsViewModel created");
     getData();
   }
 
@@ -30,7 +29,6 @@ class TransactionsViewModel extends BaseViewModel {
       _transactions = value[1] as List<TransactionModel>;
       setBusyAndNotify(false);
     }).catchError((error) {
-      print(error);
       setBusyAndNotify(false);
     });
   }

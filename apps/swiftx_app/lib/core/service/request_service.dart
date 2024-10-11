@@ -20,7 +20,7 @@ class RequestService {
       );
       await supabase.from("requests").insert(request.toMap());
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -34,7 +34,7 @@ class RequestService {
           .order("created_at", ascending: false);
       return response.map((e) => RequestModel.fromMap(e)).toList();
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -44,7 +44,7 @@ class RequestService {
           .createTransaction(request.requester, request.amount);
       await deleteRequest(request.id);
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -52,7 +52,7 @@ class RequestService {
     try {
       await supabase.from("requests").delete().eq("id", id);
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 }

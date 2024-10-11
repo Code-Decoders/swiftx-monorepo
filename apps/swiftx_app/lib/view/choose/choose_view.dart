@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:swiftx_app/core/app_router.dart';
 import 'package:swiftx_app/view/choose/choose_viewmodel.dart';
 
 @RoutePage()
@@ -17,23 +16,23 @@ class ChooseView extends StatelessWidget {
           final model = context.watch<ChooseViewModel>();
           return Scaffold(
             appBar: AppBar(
-              title: Text("Choose Recipient"),
+              title: const Text("Choose Recipient"),
             ),
             body: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  const Text(
                     'Please select your recipient to send money.',
                     style: TextStyle(color: Colors.grey),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   TextField(
                     onChanged: model.setQuery,
                     decoration: InputDecoration(
                       hintText: 'Search "Recipient Email"',
-                      prefixIcon: Icon(Icons.search),
+                      prefixIcon: const Icon(Icons.search),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8.0),
                         borderSide: BorderSide.none,
@@ -42,13 +41,13 @@ class ChooseView extends StatelessWidget {
                       fillColor: Colors.grey[200],
                     ),
                   ),
-                  SizedBox(height: 20),
-                  Text(
+                  const SizedBox(height: 20),
+                  const Text(
                     'Most Recent',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                   model.busy
-                      ? Center(child: CircularProgressIndicator())
+                      ? const Center(child: CircularProgressIndicator())
                       : Expanded(
                           child: ListView.builder(
                             itemCount: model.recipients.length,
@@ -66,7 +65,7 @@ class ChooseView extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                        "@" + model.recipients[index].username),
+                                        "@${model.recipients[index].username}"),
                                     Text(model.recipients[index].email),
                                   ],
                                 ),

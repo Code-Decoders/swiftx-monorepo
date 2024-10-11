@@ -24,14 +24,13 @@ class AccountViewModel extends BaseViewModel {
       _user = value[0];
       setBusyAndNotify(false);
     }).catchError((error) {
-      print(error);
       setBusyAndNotify(false);
     });
   }
 
   void logout() {
     authService.signOut().then((value) {
-      router.replace(WelcomeRoute());
+      router.replace(const WelcomeRoute());
     });
   }
 

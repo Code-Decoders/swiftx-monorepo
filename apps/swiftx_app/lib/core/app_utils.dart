@@ -11,7 +11,7 @@ extension doubleExtension on double {
       case "AED":
         return (this / AED_TO_USD_RATE).toStringAsFixed(2);
       default:
-        return this.toStringAsFixed(2);
+        return toStringAsFixed(2);
     }
   }
 
@@ -24,7 +24,7 @@ extension doubleExtension on double {
       case 'AED':
         return (this * AED_TO_USD_RATE).toStringAsFixed(2);
       default:
-        return this.toStringAsFixed(2);
+        return toStringAsFixed(2);
     }
   }
 

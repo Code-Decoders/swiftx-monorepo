@@ -21,12 +21,12 @@ class RequestDetailView extends StatelessWidget {
           final user = context.watch<ApplicationViewModel>().user;
           return Scaffold(
             appBar: AppBar(
-              title: Text('Request Details'),
+              title: const Text('Request Details'),
               centerTitle: true,
               backgroundColor: Colors.white,
               elevation: 0,
-              iconTheme: IconThemeData(color: Colors.black),
-              titleTextStyle: TextStyle(
+              iconTheme: const IconThemeData(color: Colors.black),
+              titleTextStyle: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 20,
@@ -37,39 +37,39 @@ class RequestDetailView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   // Requester Information
                   CircleAvatar(
                     radius: 50,
                     child: Text(request.requester.name[0]),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Text(
                     request.requester.name,
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(
                     request.requester.email,
-                    style: TextStyle(color: Colors.grey, fontSize: 16),
+                    style: const TextStyle(color: Colors.grey, fontSize: 16),
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   // Request Amount
                   Container(
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 30),
+                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 30),
                     decoration: BoxDecoration(
                       color: Theme.of(context).primaryColorLight,
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Column(
                       children: [
-                        Text(
+                        const Text(
                           'Amount Requested',
                           style: TextStyle(
                             fontSize: 16,
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(
                           "${user.country == "UAE" ? "AED" : "SGD"} ${request.amount.toCurrency(countryCode: user.country)}",
                           style: TextStyle(
@@ -80,7 +80,7 @@ class RequestDetailView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   // Pay Button
                   AppButton.primary(
                     title: 'Pay Now',
@@ -94,7 +94,7 @@ class RequestDetailView extends StatelessWidget {
                       }
                     },
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   AppButton.secondary(
                     title: "Decline",
                     onTap: () {
@@ -107,7 +107,7 @@ class RequestDetailView extends StatelessWidget {
                       }
                     },
                   ),
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                 ],
               ),
             ),

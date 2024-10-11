@@ -10,8 +10,7 @@ class KycViewModel extends BaseViewModel {
     setBusyAndNotify(true);
     await Future.delayed(const Duration(seconds: 2));
     await authService.verifyUser().then((value) {
-      print('KYC Verification Successful');
-      router.replace(AppRoute());
+      router.replace(const AppRoute());
     });
     setBusyAndNotify(false);
   }

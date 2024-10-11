@@ -77,7 +77,6 @@ class AppRouter extends RootStackRouter {
       ];
 
   @override
-  // TODO: implement guards
   List<AutoRouteGuard> get guards => [
         AuthGuard(),
       ];
@@ -86,13 +85,13 @@ class AppRouter extends RootStackRouter {
 class AuthGuard extends AutoRouteGuard {
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    final _authService = locator<AuthService>();
-    final isAuthenticated = _authService.isUserSignedIn();
+    final authService = locator<AuthService>();
+    final isAuthenticated = authService.isUserSignedIn();
     debugPrint('isAuthenticated: $isAuthenticated');
     if (isAuthenticated) {
       if ([WelcomeRoute.name, LoginRoute.name, SignUpRoute.name]
           .contains(resolver.route.name)) {
-        router.push(AppRoute());
+        router.push(const AppRoute());
       } else {
         resolver.next();
       }
@@ -101,7 +100,7 @@ class AuthGuard extends AutoRouteGuard {
           .contains(resolver.route.name)) {
         resolver.next();
       } else {
-        router.push(WelcomeRoute());
+        router.push(const WelcomeRoute());
       }
     }
   }

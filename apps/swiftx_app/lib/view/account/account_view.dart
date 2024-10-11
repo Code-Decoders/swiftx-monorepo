@@ -20,7 +20,7 @@ class AccountView extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(
               elevation: 0,
-              title: Text('Account', style: TextStyle(color: Colors.black)),
+              title: const Text('Account', style: TextStyle(color: Colors.black)),
               centerTitle: true,
             ),
             body: Padding(
@@ -30,7 +30,7 @@ class AccountView extends StatelessWidget {
                   // Profile Information
                   Container(
                     width: double.infinity,
-                    padding: EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(12),
@@ -42,35 +42,35 @@ class AccountView extends StatelessWidget {
                           child: Text(model.user.name[0],
                               style: Theme.of(context).textTheme.displayMedium),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Text(
                           model.user.name,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          "@" + model.user.username,
-                          style: TextStyle(color: Colors.grey),
+                          "@${model.user.username}",
+                          style: const TextStyle(color: Colors.grey),
                         ),
                         Text(
                           model.user.email,
-                          style: TextStyle(color: Colors.grey),
+                          style: const TextStyle(color: Colors.grey),
                         ),
                         Text(
                           model.user.phone,
-                          style: TextStyle(color: Colors.grey),
+                          style: const TextStyle(color: Colors.grey),
                         ),
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   // Menu Options
                   Expanded(
                     child: ListView(
                       children: [
                         ListTile(
                           leading: Icon(Icons.person, color: Colors.grey[700]),
-                          title: Text('Personal Info'),
+                          title: const Text('Personal Info'),
                           trailing: Icon(Icons.arrow_forward_ios,
                               size: 16, color: Colors.grey[700]),
                           onTap: () {},
@@ -78,7 +78,7 @@ class AccountView extends StatelessWidget {
                         ListTile(
                           leading:
                               Icon(Icons.receipt_long, color: Colors.grey[700]),
-                          title: Text('Transactions'),
+                          title: const Text('Transactions'),
                           trailing: Icon(Icons.arrow_forward_ios,
                               size: 16, color: Colors.grey[700]),
                           onTap: () {
@@ -88,7 +88,7 @@ class AccountView extends StatelessWidget {
                         ListTile(
                           leading:
                               Icon(Icons.privacy_tip, color: Colors.grey[700]),
-                          title: Text('Privacy Policy'),
+                          title: const Text('Privacy Policy'),
                           trailing: Icon(Icons.arrow_forward_ios,
                               size: 16, color: Colors.grey[700]),
                           onTap: () {},
@@ -96,14 +96,14 @@ class AccountView extends StatelessWidget {
                         ListTile(
                           leading:
                               Icon(Icons.settings, color: Colors.grey[700]),
-                          title: Text('Settings'),
+                          title: const Text('Settings'),
                           trailing: Icon(Icons.arrow_forward_ios,
                               size: 16, color: Colors.grey[700]),
                           onTap: () {},
                         ),
                         ListTile(
-                          leading: Icon(Icons.logout, color: Colors.red),
-                          title: Text('Logout',
+                          leading: const Icon(Icons.logout, color: Colors.red),
+                          title: const Text('Logout',
                               style: TextStyle(color: Colors.red)),
                           onTap: () {
                             model.logout();

@@ -27,51 +27,49 @@ class SendRequestView extends StatelessWidget {
           return Scaffold(
             appBar: AppBar(),
             body: Padding(
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  Container(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("You Have", style: TextStyle(color: Colors.grey)),
-                        SizedBox(height: 8),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: TextFormField(
-                                controller: model.userCurrencyController,
-                                onChanged: (value) {
-                                  model.setAmount(value, countryCode);
-                                },
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: '0.00',
-                                  hintStyle: TextStyle(
-                                      fontSize: 24,
-                                      color: Theme.of(context).primaryColor,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                style: TextStyle(
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("You Have", style: TextStyle(color: Colors.grey)),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: TextFormField(
+                              controller: model.userCurrencyController,
+                              onChanged: (value) {
+                                model.setAmount(value, countryCode);
+                              },
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                hintText: '0.00',
+                                hintStyle: TextStyle(
                                     fontSize: 24,
                                     color: Theme.of(context).primaryColor,
                                     fontWeight: FontWeight.bold),
-                                keyboardType: TextInputType.number,
                               ),
+                              style: TextStyle(
+                                  fontSize: 24,
+                                  color: Theme.of(context).primaryColor,
+                                  fontWeight: FontWeight.bold),
+                              keyboardType: TextInputType.number,
                             ),
-                            Text(countryCode,
-                                style: Theme.of(context).textTheme.titleMedium),
-                          ],
-                        ),
-                        SizedBox(height: 4),
-                        Text(
-                            "1 $countryCode = ${countryCode == "AED" ? "${1.toDouble().toSGD()} SGD" : "${1.toDouble().toAED()} AED"}",
-                            style: TextStyle(color: Colors.grey)),
-                      ],
-                    ),
+                          ),
+                          Text(countryCode,
+                              style: Theme.of(context).textTheme.titleMedium),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                          "1 $countryCode = ${countryCode == "AED" ? "${1.toDouble().toSGD()} SGD" : "${1.toDouble().toAED()} AED"}",
+                          style: const TextStyle(color: Colors.grey)),
+                    ],
                   ),
-                  Divider(),
+                  const Divider(),
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
@@ -79,7 +77,7 @@ class SendRequestView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -108,14 +106,14 @@ class SendRequestView extends StatelessWidget {
                                 style: Theme.of(context).textTheme.titleMedium),
                           ],
                         ),
-                        SizedBox(height: 4),
+                        const SizedBox(height: 4),
                         Text(
                             "1 $oppositeCountryCode = ${oppositeCountryCode == "AED" ? "${1.toDouble().toSGD()} SGD" : "${1.toDouble().toAED()} AED"}",
-                            style: TextStyle(color: Colors.grey)),
+                            style: const TextStyle(color: Colors.grey)),
                       ],
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   AppButton.primary(
                       title: isIncome ? "Request" : "Send",
                       onTap: () async {

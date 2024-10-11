@@ -47,7 +47,7 @@ class LoginViewModel extends BaseViewModel {
     await authService.signInUser(_email, _password).then((response) {
       setBusyAndNotify(false);
       if (response.user != null) {
-        router.replace(AppRoute());
+        router.replace(const AppRoute());
       } else {
         throw Exception('Invalid email or password');
       }

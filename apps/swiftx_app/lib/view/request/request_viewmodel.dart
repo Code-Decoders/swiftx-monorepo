@@ -12,7 +12,6 @@ class RequestViewModel extends BaseViewModel {
   final requestService = locator<RequestService>();
 
   RequestViewModel() {
-    print("RequestViewModel created");
     getData();
   }
 
@@ -20,7 +19,7 @@ class RequestViewModel extends BaseViewModel {
     setBusyAndNotify(true);
     Future.wait([requestService.getRequests()])
         .then((value) => {
-              _requests = value[0] as List<RequestModel>,
+              _requests = value[0],
               setBusyAndNotify(false)
             });
   }

@@ -26,7 +26,6 @@ class SendRequestViewModel extends BaseViewModel {
 
   void setAmount(String value, String currency) {
     var usd = double.parse(value).toUSD(countryCode: currency);
-    print(usd);
     _amount = usd;
     if (currency == _countryCode) {
       recipientCurrencyController.text = currency == "AED"
@@ -46,7 +45,6 @@ class SendRequestViewModel extends BaseViewModel {
     await requestService.createRequest(_recipient, double.parse(_amount));
     await router.maybePopTop();
     router.maybePopTop();
-    print("Requesting $_amount from ${_recipient.name}, ${_recipient.country}");
     // Send request to the recipient
   }
 
@@ -57,7 +55,6 @@ class SendRequestViewModel extends BaseViewModel {
       await router.maybePopTop();
       router.maybePopTop();
     });
-    print("Sending $_amount to ${_recipient.name}, ${_recipient.country}");
     // Send money to the recipient
   }
 }

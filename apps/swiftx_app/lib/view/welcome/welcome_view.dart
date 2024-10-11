@@ -15,7 +15,7 @@ class WelcomeView extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
           onPressed: () {},
         ),
       ),
@@ -35,8 +35,8 @@ class WelcomeView extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            Text(
+            const SizedBox(height: 20),
+            const Text(
               'Create your SwiftX account',
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -44,32 +44,32 @@ class WelcomeView extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 10),
-            Text(
+            const SizedBox(height: 10),
+            const Text(
               'SwiftX is a powerful tool that allows you to easily send, receive, and track all your transactions.',
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.grey),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             // Sign Up Button
             AppButton.primary(
                 title: 'Sign up',
                 onTap: () {
                   context.router.push(SignUpRoute());
                 }),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             // Log In Button
             AppButton.secondary(
                 title: 'Log in',
                 onTap: () {
                   context.router.push(LoginRoute());
                 }),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Terms and Privacy Policy
             Text.rich(
               TextSpan(
                 text: 'By continuing you accept our ',
-                style: TextStyle(color: Colors.grey),
+                style: const TextStyle(color: Colors.grey),
                 children: [
                   TextSpan(
                     text: 'Terms of Service',
@@ -79,7 +79,7 @@ class WelcomeView extends StatelessWidget {
                         // Handle Terms of Service tap
                       },
                   ),
-                  TextSpan(
+                  const TextSpan(
                     text: ' and ',
                     style: TextStyle(color: Colors.grey),
                   ),
@@ -95,7 +95,7 @@ class WelcomeView extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
           ],
         ),
       ),

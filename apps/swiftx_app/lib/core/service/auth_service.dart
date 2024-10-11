@@ -37,7 +37,7 @@ class AuthService {
   Future<bool> checkUsername(String username) async {
     final response =
         await supabase.from("users").select().eq("username", username);
-    return response.length > 0;
+    return response.isNotEmpty;
   }
 
   Future<void> signOut() async {

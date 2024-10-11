@@ -1,10 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dot_navigation_bar/dot_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:swiftx_app/core/app_router.dart';
 import 'package:swiftx_app/core/application_viewmodel.dart';
-import 'package:swiftx_app/widget/icons/icon.dart';
 
 @RoutePage(name: "AppRoute")
 class AppWrapper extends StatelessWidget {
@@ -42,7 +40,7 @@ class AppWrapper extends StatelessWidget {
                         selectedItemColor: Theme.of(context).primaryColor,
                         unselectedItemColor: Colors.grey,
                         showSelectedLabels: false,
-                        items: [
+                        items: const [
                           BottomNavigationBarItem(
                             icon: Icon(Icons.home),
                             label: 'Home',

@@ -24,11 +24,11 @@ class KycView extends StatelessWidget {
                 children: [
                   Text('KYC & AML Verification',
                       style: Theme.of(context).textTheme.headlineLarge),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   Text(
                       'Country: ${country == "AE" ? "United Arab Emirates" : "Singapore"}',
                       style: Theme.of(context).textTheme.bodyMedium),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                   AppButton.primary(
                       title: 'Start Verification',
                       onTap: () async {

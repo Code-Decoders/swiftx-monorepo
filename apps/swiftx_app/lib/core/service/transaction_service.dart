@@ -26,7 +26,7 @@ class TransactionService {
         "balance": recipient.balance + amount,
       }).eq("id", recipient.id);
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -40,7 +40,7 @@ class TransactionService {
           .order("created_at", ascending: false);
       return response.map((e) => TransactionModel.fromMap(e)).toList();
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -55,7 +55,7 @@ class TransactionService {
           .limit(5);
       return response.map((e) => TransactionModel.fromMap(e)).toList();
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 }

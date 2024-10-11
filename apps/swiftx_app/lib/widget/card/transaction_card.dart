@@ -13,13 +13,13 @@ class TransactionCard extends StatelessWidget {
   final TransactionModel transaction;
 
   const TransactionCard({
-    Key? key,
+    super.key,
     required this.title,
     required this.description,
     required this.amount,
     required this.isIncome,
     required this.currency, required this.transaction,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class TransactionCard extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyMedium,
       ),
       trailing: Text(
-        isIncome ? '+ ${currency} $amount' : '- ${currency} $amount',
+        isIncome ? '+ $currency $amount' : '- $currency $amount',
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: isIncome ? Colors.greenAccent : Colors.redAccent,
               fontWeight: FontWeight.bold,

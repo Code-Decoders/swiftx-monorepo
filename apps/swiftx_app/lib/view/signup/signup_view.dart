@@ -25,56 +25,56 @@ class SignUpView extends StatelessWidget {
               child: ListView(
                 padding: const EdgeInsets.all(16.0),
                 children: [
-                  Text(
+                  const Text(
                     'Create Account',
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
                     'Sign up to get started!',
                     style: TextStyle(fontSize: 16, color: Colors.grey[600]),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   TextFormField(
                     onChanged: model.setUsername,
                     validator: model.validateUsername,
                     decoration: InputDecoration(
                       labelText: 'Username',
-                      prefixIcon: Icon(Icons.person),
+                      prefixIcon: const Icon(Icons.person),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   // Name TextField
                   TextFormField(
                     onChanged: model.setName,
                     validator: model.validateName,
                     decoration: InputDecoration(
                       labelText: 'Name',
-                      prefixIcon: Icon(Icons.person),
+                      prefixIcon: const Icon(Icons.person),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   // Email TextField
                   TextFormField(
                     validator: model.validateEmail,
                     onChanged: model.setEmail,
                     decoration: InputDecoration(
                       labelText: 'Email',
-                      prefixIcon: Icon(Icons.email),
+                      prefixIcon: const Icon(Icons.email),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   InternationalPhoneNumberInput(
-                    countries: [
+                    countries: const [
                       'AE',
                       'SG',
                     ],
@@ -93,7 +93,7 @@ class SignUpView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   // Password TextField
                   TextFormField(
                     onChanged: model.setPassword,
@@ -101,26 +101,26 @@ class SignUpView extends StatelessWidget {
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      prefixIcon: Icon(Icons.lock),
+                      prefixIcon: const Icon(Icons.lock),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   // Sign Up Button
                   TextFormField(
                     validator: model.validateConfirmPassword,
                     obscureText: true,
                     decoration: InputDecoration(
                       labelText: 'Confirm Password',
-                      prefixIcon: Icon(Icons.lock),
+                      prefixIcon: const Icon(Icons.lock),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   AppButton.primary(
                     title: 'Sign Up',
                     onTap: () async {
@@ -134,13 +134,13 @@ class SignUpView extends StatelessWidget {
                       }
                     },
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   // Login Link
                   Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Already have an account?'),
+                        const Text('Already have an account?'),
                         TextButton(
                           onPressed: () {
                             context.router.push(LoginRoute());

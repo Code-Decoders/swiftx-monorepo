@@ -58,7 +58,7 @@ class _HomeViewState extends State<HomeView>
                     Expanded(
                       child: AppButton.primary(
                         icon: AppIcons.money_send,
-                        padding: EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         title: "Send",
                         onTap: () {
                           context.router.push(ChooseRoute(isIncome: false));
@@ -68,7 +68,7 @@ class _HomeViewState extends State<HomeView>
                     const SizedBox(width: 20),
                     Expanded(
                       child: AppButton.secondary(
-                        padding: EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         icon: AppIcons.money_receive,
                         title: "Request",
                         onTap: () {

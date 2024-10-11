@@ -83,7 +83,7 @@ class CreditCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '$balance',
+                        balance,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 16.0,

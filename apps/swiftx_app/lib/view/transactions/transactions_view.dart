@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,14 +13,9 @@ class TransactionsView extends StatefulWidget {
   State<TransactionsView> createState() => _TransactionsViewState();
 }
 
-class _TransactionsViewState extends State<TransactionsView>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  // TODO: implement wantKeepAlive
-  bool get wantKeepAlive => false;
+class _TransactionsViewState extends State<TransactionsView> {
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return ChangeNotifierProvider(
         create: (_) => TransactionsViewModel(),
         builder: (context, _) {

@@ -64,12 +64,12 @@ class TransactionDetailView extends StatelessWidget {
             buildDetailRow('Transaction ID',
                 "TXN${transaction.id.toString().padLeft(10, "0")}"),
             buildDetailRow(
-                "${user.id == transaction.sender_id ? "Receiver Name" : "Sender Name"}",
+                user.id == transaction.sender_id ? "Receiver Name" : "Sender Name",
                 user.id == transaction.sender_id
                     ? transaction.receiver.name
                     : transaction.sender.name),
             buildDetailRow(
-                "${user.id == transaction.sender_id ? "Receiver Email" : "Sender Email"}",
+                user.id == transaction.sender_id ? "Receiver Email" : "Sender Email",
                 user.id == transaction.sender_id
                     ? transaction.receiver.email
                     : transaction.sender.email),

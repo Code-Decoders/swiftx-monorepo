@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:swiftx_app/core/app_locator.dart';
 import 'package:swiftx_app/core/base_viewmodel.dart';
 import 'package:swiftx_app/core/model/user_model.dart';
@@ -12,7 +11,6 @@ class ApplicationViewModel extends BaseViewModel {
   final authService = locator<AuthService>();
 
   ApplicationViewModel() {
-    print("ApplicationViewModel created");
     getData();
   }
 
@@ -23,7 +21,6 @@ class ApplicationViewModel extends BaseViewModel {
       _user = value;
       setBusyAndNotify(false);
     }).catchError((error) {
-      print(error);
       setBusyAndNotify(false);
     });
   }
