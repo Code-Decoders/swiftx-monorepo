@@ -8,7 +8,7 @@ import "../lib/wormhole-solidity-sdk/src/interfaces/IWormholeRelayer.sol";
  * @title SwiftXToken
  * @dev ERC20 Token with minting and burning capabilities, integrated with Wormhole for cross-chain transfers.
  */
-contract SwiftXToken is ERC20, Ownable {
+contract SwiftXToken is ERC20 {
     address public parentContract;
     uint16 public parentChainId;
     IWormholeRelayer public immutable wormholeRelayer;
@@ -21,21 +21,23 @@ contract SwiftXToken is ERC20, Ownable {
      * @param symbol_ Token symbol.
      * @param _wormholeRelayer Address of the deployed Wormhole Relayer contract.
      * @param _parentContract Address of the SwiftX parent contract on the parent chain.
+     * @param _parentChainId Id for the parent chain
      */
 
     constructor(
         string memory name_,
         string memory symbol_,
         address _wormholeRelayer,   
-        address _parentContract
+        address _parentContract,
+        uint16 _parentChainId
     )
         ERC20(name_, symbol_)
-        Ownable(msg.sender)
     {
         require(_wormholeRelayer != address(0), "Invalid Wormhole Relayer address");
         require(_parentContract != address(0), "Invalid Parent Contract address");
         wormholeRelayer = IWormholeRelayer(_wormholeRelayer);
         parentContract = _parentContract;
+        parentChainId = _parentChainId; 
     }
 
     /**
@@ -97,7 +99,7 @@ contract SwiftXToken is ERC20, Ownable {
      * @notice Allows the owner to update the Parent Contract address.
      * @param _newParent Address of the new Parent Contract.
      */
-    function updateParentContract(address _newParent) external onlyOwner {
+    function updateParentContract(address _newParent) public {
         require(_newParent != address(0), "Invalid Parent Contract address");
         parentContract = _newParent;
     }
@@ -106,7 +108,7 @@ contract SwiftXToken is ERC20, Ownable {
      * @notice Allows the owner to update the Parent Chain ID.
      * @param _newParentChainId The new Parent Chain identifier.
      */
-    function updateParentChainId(uint16 _newParentChainId) external onlyOwner {
+    function updateParentChainId(uint16 _newParentChainId) public {
         parentChainId = _newParentChainId;
     }
 

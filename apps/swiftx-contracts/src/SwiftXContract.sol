@@ -32,8 +32,7 @@ contract SwiftX is IWormholeReceiver, Ownable {
         bytes32,        
         uint16,
         bytes32             
-    ) public payable override {
-
+    ) public payable override {                 
         // Expected format: (tokenId, amount, recipient)
         (uint256 txId, uint256 amount, address recipient, address sender) = abi
             .decode(payload, (uint256, uint256, address, address));
