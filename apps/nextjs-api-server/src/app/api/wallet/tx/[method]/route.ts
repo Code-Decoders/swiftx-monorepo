@@ -4,11 +4,12 @@ import { dwClient } from "@/lib/initDevWallet";
 export async function POST(req: NextRequest, { params }: { params: { method: string } }) {
     const { method } = params
     const { paramSign, contractAddress, walletId } = await req.json()
-    
+
     try {
         const { data } = await dwClient.createContractExecutionTransaction({
             contractAddress: contractAddress,
             walletId: walletId,
+            // method might need stringification
             abiFunctionSignature: method,
             abiParameters: paramSign,
             fee: {

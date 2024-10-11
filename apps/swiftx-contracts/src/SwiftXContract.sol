@@ -29,9 +29,9 @@ contract SwiftX is IWormholeReceiver, Ownable {
     function receiveWormholeMessages(
         bytes memory payload,
         bytes[] memory,
-        bytes32,
+        bytes32,        
         uint16,
-        bytes32     
+        bytes32             
     ) public payable override {
 
         // Expected format: (tokenId, amount, recipient)
