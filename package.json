@@ -8,16 +8,21 @@
     "packages/*"
   ],
   "scripts": {
-    "dev:nextjs": "yarn workspace nextjs-api-server dev",
-    "build:nextjs": "yarn workspace nextjs-api-server build",
+    "dev:nextjs": "cd apps/nextjs-api-server && yarn dev",
+    "build:nextjs": "cd apps/nextjs-api-server && yarn build",
     "test:nextjs": "yarn workspace nextjs-api-server test",
     "dev:flutter": "cd apps/swiftx_app && flutter run",
     "build:flutter": "cd apps/swiftx_app && flutter build",
-    "lint:nextjs": "yarn workspace nextjs-api-server lint"
+    "lint:nextjs": "yarn workspace nextjs-api-server lint",
+    "deploy": "cd apps/nextjs-api-server && npx vercel --prod"
   },
   "dependencies": {
+    "@circle-fin/smart-contract-platform": "^4.3.0",
     "axios": "^1.7.7",
     "dotenv": "^16.4.5",
     "ethers": "^6.13.3"
+  },
+  "devDependencies": {
+    "vercel": "^37.8.0"
   }
 }
