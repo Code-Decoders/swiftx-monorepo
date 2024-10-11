@@ -40,7 +40,7 @@ const createWallet = async () => {
       },
     },
   );
-  return response.json();
+  return await response.json();
 };
 
 Deno.serve(async (req) => {
@@ -52,9 +52,7 @@ Deno.serve(async (req) => {
     case "users:INSERT": {
       const response = await createWallet();
       const { data, error } = await supabaseClient.from("users").update({
-        metadata: {
-          wallet: response.wallet[0],
-        },
+        metadata: response,
       }).eq("id", payload.record.id);
       console.log(data, error);
       break;
