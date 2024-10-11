@@ -4,11 +4,13 @@ class CreditCard extends StatelessWidget {
   final String cardHolder;
   final String cardNumber;
   final String balance;
+  final String country;
   const CreditCard(
       {super.key,
       required this.cardHolder,
       required this.cardNumber,
-      required this.balance});
+      required this.balance,
+      required this.country});
 
   @override
   Widget build(BuildContext context) {
@@ -39,37 +41,13 @@ class CreditCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 16.0),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    "UAE",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20.0,
-                      letterSpacing: 2.0,
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Locked Balance   ',
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: 12.0,
-                        ),
-                      ),
-                      Text(
-                        '$balance',
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              Text(
+                country,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  letterSpacing: 2.0,
+                ),
               ),
               const SizedBox(height: 80),
               Row(
@@ -105,7 +83,7 @@ class CreditCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '$balance',
+                        balance,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 16.0,
