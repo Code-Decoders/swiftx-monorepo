@@ -9,5 +9,13 @@
     "solidity.compileUsingRemoteVersion": "v0.8.20",
     "solidity.remappings": [
         "@openzeppelin/=project/contracts/lib/openzeppelin-contracts/"
-    ]
+    ],
+    "deno.enablePaths": [
+        "apps/supabase/functions"
+    ],
+    "deno.lint": true,
+    "deno.unstable": true,
+    "[typescript]": {
+        "editor.defaultFormatter": "denoland.vscode-deno"
+    }
 }
