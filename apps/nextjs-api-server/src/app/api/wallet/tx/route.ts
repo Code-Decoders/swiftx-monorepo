@@ -21,14 +21,14 @@ export async function GET(req: NextRequest) {
 }
 
 export async function POST(req: NextRequest) {
-  const { walletId, desAddress, amount, tokenId } = await req.json();
+  const { walletId, contractAddress, functionSign, paramSign } = await req.json();
 
   try {
-    const { data } = await dwClient.createTransaction({
-      amount,
-      walletId,
-      tokenId,
-      destinationAddress: desAddress,
+    const { data } = await dwClient.createContractExecutionTransaction({
+      contractAddress: contractAddress,
+      walletId: walletId,
+      abiFunctionSignature: functionSign,
+      abiParameters: paramSign,
       fee: {
         type: "level",
         config: {

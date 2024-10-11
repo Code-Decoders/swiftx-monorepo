@@ -31,7 +31,7 @@ contract SwiftX is IWormholeReceiver, Ownable {
         bytes[] memory,
         bytes32,
         uint16,
-        bytes32
+        bytes32     
     ) public payable override {
 
         // Expected format: (tokenId, amount, recipient)
