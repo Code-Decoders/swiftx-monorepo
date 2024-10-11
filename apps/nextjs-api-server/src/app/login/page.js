@@ -9,9 +9,9 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const router = useRouter();
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        signIn(email, password);
+        await signIn(email, password);
         router.push('/');
     };
 
