@@ -14,7 +14,7 @@ import { useRouter } from "next/navigation";
 const SGD_TO_USD_RATE = 0.77;
 const AED_TO_USD_RATE = 0.27;
 
-export function Home() {
+export default function Home() {
   const [tableData, setTableData] = useState<any[]>([]);
 
   const [stats, setStats] = useState<any>({});
