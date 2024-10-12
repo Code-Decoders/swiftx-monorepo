@@ -13,6 +13,9 @@ const supabaseClient = createClient(
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "",
 );
 
+const OPTIMISED_CONTRACT_ADDRESS = "0xA88E420bBA06379bd7872939fF510e2E3EA62F4a";
+const OPTIMISED_CHAIN = "ARB-SEPOLIA";
+
 const swiftXAPICall = async (
   method: "initTransfer" | "confirmTransfer",
   body: any,
@@ -59,8 +62,107 @@ Deno.serve(async (req) => {
       break;
     }
     case "transactions:INSERT": {
+      const amount = payload.record.amount * 10 ** 18;
+      const receiverId = payload.record.receiver_id;
+      const senderId = payload.record.sender_id;
+
+      console.log("receiverId", receiverId);
+      console.log("senderId", senderId);
+      console.log("amount", amount);
+
+      const { data: receiver } = await supabaseClient.from("users").select(
+        "metadata",
+      ).eq(
+        "id",
+        receiverId,
+      ).single();
+
+      console.log("receiver", receiver);
+
+      const { data: sender } = await supabaseClient.from("users").select(
+        "metadata",
+      ).eq(
+        "id",
+        senderId,
+      ).single();
+
+      console.log("sender", sender);
+
+      const response = await swiftXAPICall("initTransfer", {
+        paramSign: [
+          amount,
+          payload.record.id,
+          receiver!.metadata.wallets[0].address,
+        ],
+        contractAddress: OPTIMISED_CONTRACT_ADDRESS,
+        walletId: sender!.metadata.wallets.find(
+          (w: any) => w.blockchain === OPTIMISED_CHAIN,
+        ).id,
+      });
+
+      console.log(response);
+
+      const { data, error } = await supabaseClient.from("transactions").update({
+        transaction_hash: response.txHash,
+      }).eq("id", payload.record.id);
+
+      console.log(data, error);
+      break;
     }
     case "transactions:UPDATE": {
+      console.log(payload.old_record.status, payload.record.status);
+      if (
+        payload.old_record.status === "completed" &&
+        payload.record.status === "burned"
+      ) {
+        const amount = payload.record.amount * 10 ** 18;
+        const receiverId = payload.record.receiver_id;
+        const senderId = payload.record.sender_id;
+
+        console.log("receiverId", receiverId);
+        console.log("senderId", senderId);
+        console.log("amount", amount);
+
+        const { data: receiver } = await supabaseClient.from("users").select(
+          "metadata",
+        ).eq(
+          "id",
+          receiverId,
+        ).single();
+
+        console.log("receiver", receiver);
+
+        const { data: sender } = await supabaseClient.from("users").select(
+          "metadata",
+        ).eq(
+          "id",
+          senderId,
+        ).single();
+
+        console.log("sender", sender);
+
+        const response = await swiftXAPICall("confirmTransfer", {
+          paramSign: [
+            amount,
+            payload.record.id,
+            sender!.metadata.wallets[0].address,
+          ],
+          contractAddress: OPTIMISED_CONTRACT_ADDRESS,
+          walletId: receiver!.metadata.wallets.find(
+            (w: any) => w.blockchain === OPTIMISED_CHAIN,
+          ).id,
+        });
+
+        console.log(response);
+
+        const { data, error } = await supabaseClient.from("transactions")
+          .update({
+            transaction_hash: response.txHash,
+          }).eq("id", payload.record.id);
+
+        console.log(data, error);
+        break;
+      }
     }
   }
   return new Response("OK");

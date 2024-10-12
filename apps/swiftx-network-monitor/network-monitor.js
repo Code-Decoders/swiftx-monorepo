@@ -23,15 +23,7 @@ const getGasPrice = async (CHAIN) => {
     const response = await axios.get(CONFIG[CHAIN].GAS_API);
 
     if (response.status === 200) {
-      const [slow, standard, fast, instant] = response.data.speeds;
-      console.log(
-        `Gas Prices:\n
-🛴 Slow - ${slow.estimatedFee} GWEI
-🚗 Standard - ${standard.estimatedFee} GWEI
-🚀 Fast - ${fast.estimatedFee} GWEI
-🛸 Instant - ${instant.estimatedFee} GWEI`
-      );
-      return response.data;
+      return response.data.speeds;
     } else {
       console.error("Failed to fetch gas prices:", response.data.message);
     }
@@ -47,7 +39,6 @@ const getNetworkCongestion = async (CHAIN) => {
     const provider = new ethers.JsonRpcProvider(CONFIG[CHAIN].RPC);
 
     const pendingTxCount = await provider.getBlock("pending", true);
-    console.log(`Pending Transactions: ${pendingTxCount.transactions.length}`);
     return pendingTxCount.transactions.length;
   } catch (error) {
     console.error("Error fetching pending transactions:", error.message);
@@ -55,16 +46,38 @@ const getNetworkCongestion = async (CHAIN) => {
 };
 
 const monitorNetworks = async () => {
+  const table = [];
   for (const chain in CONFIG) {
-    console.log(`\nChecking ${chain} Network...`);
-    await getGasPrice(chain);
-    await getNetworkCongestion(chain);
-    console.log("=====================================");
+    const [slow, standard, fast, instant] = await getGasPrice(chain);
+    const congestion = await getNetworkCongestion(chain);
+    table.push({
+      Netowrk: chain,
+      Congestion: congestion,
+      "🐢 Slow": parseFloat(slow.estimatedFee.toFixed(4)),
+      "🚗 Standard": parseFloat(standard.estimatedFee.toFixed(4)),
+      "🚀 Fast": parseFloat(fast.estimatedFee.toFixed(4)),
+      "🛸 Instant": parseFloat(instant.estimatedFee.toFixed(4)),
+    });
   }
+  console.clear();
+  console.table(table);
 };
 
-console.log("Network Monitor Started...");
-monitorNetworks();
-setInterval(() => {
-  monitorNetworks();
-}, 60000); // Polling every 60 seconds
+const startMonitoring = async () => {
+  await monitorNetworks();
+  let secondsLeft = 60;
+  const countdownInterval = setInterval(async () => {
+    process.stdout.write(
+      `\rRefetching pending transactions in ${secondsLeft} seconds...`
+    );
+    secondsLeft -= 1;
+    if (secondsLeft < 0) {
+      clearInterval(countdownInterval);
+      console.clear();
+      console.log("Refetching pending transactions...");
+      await startMonitoring();
+    }
+  }, 1000);
+};
+
+startMonitoring();
