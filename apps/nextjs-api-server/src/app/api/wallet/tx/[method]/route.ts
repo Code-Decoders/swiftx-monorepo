@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { dwClient } from "@/lib/initDevWallet";
-import { TokenTransfer } from "@wormhole-foundation/sdk";
 
 export async function POST(
   req: NextRequest,
@@ -26,7 +25,6 @@ export async function POST(
       break;
   }
 
-  const qoute = await Relayer()
   try {
     const { data } = await dwClient.createContractExecutionTransaction({
       contractAddress: contractAddress,
