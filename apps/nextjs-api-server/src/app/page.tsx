@@ -2,27 +2,33 @@
 "use client";
 import { useEffect, useState } from "react";
 import Table from "./components/Table";
-import { burnToken, getStats, getTransactions, getUserData, logout } from "./_lib/supabase";
+import {
+  burnToken,
+  getStats,
+  getTransactions,
+  getUserData,
+  logout,
+} from "./_lib/supabase";
 import { useRouter } from "next/navigation";
 
 const SGD_TO_USD_RATE = 0.77;
 const AED_TO_USD_RATE = 0.27;
 
-export function toCurrency(value: any, country: any) {
-  switch (country) {
-    case "Singapore":
-      return "SGD " +  (value / SGD_TO_USD_RATE).toFixed(2);
-    case "UAE":
-      return "AED " + (value / AED_TO_USD_RATE).toFixed(2);
-    default:
-      break;
-  }
-}
-
-export default function Home() {
+export function Home() {
   const [tableData, setTableData] = useState<any[]>([]);
 
   const [stats, setStats] = useState<any>({});
+
+  function toCurrency(value: any, country: any) {
+    switch (country) {
+      case "Singapore":
+        return "SGD " + (value / SGD_TO_USD_RATE).toFixed(2);
+      case "UAE":
+        return "AED " + (value / AED_TO_USD_RATE).toFixed(2);
+      default:
+        break;
+    }
+  }
 
   interface User {
     country: string;
