@@ -8,10 +8,8 @@ const AED_TO_USD_RATE = 0.27;
 export function toCurrency(value, country) {
     switch (country) {
         case "Singapore":
-            console.log((value / SGD_TO_USD_RATE).toFixed(2));
             return (value / SGD_TO_USD_RATE).toFixed(2);
         case "UAE":
-            console.log((value / AED_TO_USD_RATE).toFixed(2));
             return (value / AED_TO_USD_RATE).toFixed(2);
         default:
             break;
