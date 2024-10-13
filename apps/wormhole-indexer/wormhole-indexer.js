@@ -8,6 +8,8 @@ const SUPABASE_KEY =
 const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const indexWormhole = async () => {
+  const log = [];
+
   try {
     const { data: transactions, error: fetchError } = await supabase
       .from("transactions")
@@ -21,19 +23,21 @@ const indexWormhole = async () => {
     console.log(`Fetched ${transactions.length} pending transactions.`);
 
     for (const tx of transactions) {
-      console.log(`Indexing transaction: ${tx.transaction_hash}`);
+      const item = {};
+
+      item.transaction_hash = tx.transaction_hash;
 
       const wormholeTx = await fetchWormholeTx(tx.transaction_hash);
 
       if (wormholeTx.operations.length === 0) {
-        console.log(
-          `No operations found for transaction: ${tx.transaction_hash}`
-        );
+        item.status = "no operations";
+        item[" "] = "🔄";
+        log.push(item);
         continue;
       }
 
       if (wormholeTx.operations[0].targetChain.status === "completed") {
-        console.log(`Transaction ${tx.transaction_hash} confirmed on Wormhole`);
+        item.status = "completed";
 
         const { error: updateError } = await supabase
           .from("transactions")
@@ -45,18 +49,19 @@ const indexWormhole = async () => {
             `Error updating transaction status: ${updateError.message}`
           );
         }
-
-        console.log(
-          `Transaction ${tx.transaction_hash} status updated to confirmed.`
-        );
+        item[" "] = "✅";
       } else {
-        console.log(
-          `Transaction ${tx.transaction_hash} not yet confirmed on Wormhole.`
-        );
+        item.status = "processing";
+        item[" "] = "🔄";
       }
+      log.push(item);
     }
   } catch (error) {
     console.error(`Error during wormhole indexing process: ${error.message}`);
+  }
+
+  if (log.length !== 0) {
+    console.table(log);
   }
 };
 const startIndexingProcess = async () => {

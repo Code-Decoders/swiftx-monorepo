@@ -65,7 +65,7 @@ const monitorNetworks = async () => {
 
 const startMonitoring = async () => {
   await monitorNetworks();
-  let secondsLeft = 60;
+  let secondsLeft = 30;
   const countdownInterval = setInterval(async () => {
     process.stdout.write(
       `\rRefetching pending transactions in ${secondsLeft} seconds...`

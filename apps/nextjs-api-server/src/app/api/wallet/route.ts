@@ -70,6 +70,9 @@ export async function POST(req: NextRequest) {
       const { data } = await dwClient.createWallets({
         blockchains: ["ARB-SEPOLIA", "ETH-SEPOLIA"],
         count: 1,
+        metadata: [{
+          name,
+        }],
         walletSetId: walData?.walletSet.id ?? "",
         accountType: "SCA",
         idempotencyKey: v4(),

@@ -15,7 +15,9 @@
     "build:flutter": "cd apps/swiftx_app && flutter build",
     "lint:nextjs": "yarn workspace nextjs-api-server lint",
     "deploy": "cd apps/nextjs-api-server && npx vercel --prod",
-    "supabase": "cd apps && supabase functions deploy ledger-trigger --no-verify-jwt"
+    "supabase": "cd apps && supabase functions deploy ledger-trigger --no-verify-jwt",
+    "wormhole": "cd apps/wormhole-indexer && node wormhole-indexer.js",
+    "monitor": "cd apps/swiftx-network-monitor && node network-monitor.js"
   },
   "dependencies": {
     "@circle-fin/smart-contract-platform": "^4.3.0",
