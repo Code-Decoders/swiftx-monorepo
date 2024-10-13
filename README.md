@@ -12,6 +12,8 @@ Welcome to the SwiftX Monorepo! This repository contains all the projects and pa
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
+- [Live Link](#live-link)
+- [Demo Video](#demo-video)
 
 ## Introduction
 
@@ -103,3 +105,11 @@ We welcome contributions! Please read our [contributing guidelines](CONTRIBUTING
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Live Link
+
+Check out the live application [here](https://swiftx.codedecoders.io).
+
+## Demo Video
+
+Watch the demo video [here](https://youtu.be/WQyCmmNygOc).
