@@ -8,7 +8,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev:nextjs": "cd apps/nextjs-api-server && yarn dev",
+    "dev:nextjs": "cd apps/nextjs-api-server && yarn && yarn dev",
     "build:nextjs": "cd apps/nextjs-api-server && yarn build",
     "test:nextjs": "yarn workspace nextjs-api-server test",
     "dev:flutter": "cd apps/swiftx_app && flutter run",
