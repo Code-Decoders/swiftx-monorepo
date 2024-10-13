@@ -35,20 +35,15 @@ export async function middleware(request) {
   // supabase.auth.getUser(). A simple mistake could make it very hard to debug
   // issues with users being randomly logged out.
 
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (request.nextUrl.pathname.startsWith("/api")) {
+  console.log(request.nextUrl.pathname);
+  if (request.nextUrl.pathname.startsWith("/api") || request.nextUrl.pathname == "/") {
     // Allow API routes to pass through
-    return NextResponse.next({
-      request: {
-        headers: {
-          ...request.headers,
-          cookie: cookieStore,
-        },
-      },
-    });
+    return response;
   } else {
     const urls = ["/login"];
 
@@ -59,7 +54,7 @@ export async function middleware(request) {
       return NextResponse.redirect(url);
     } else if (user && urls.includes(request.nextUrl.pathname)) {
       const url = request.nextUrl.clone();
-      url.pathname = "/";
+      url.pathname = "/dashboard";
       return NextResponse.redirect(url);
     }
 
