@@ -1,4 +1,6 @@
 # SwiftX Monorepo
+![SwiftX Logo](https://i.imgur.com/CfaJ2GJ.png)
+
 Welcome to the SwiftX Monorepo! This repository contains all the projects and packages related to the SwiftX ecosystem.
 
 ## Table of Contents
