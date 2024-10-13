@@ -81,6 +81,11 @@ Here are the commands you can use to manage and run the various applications in 
 - **Network Monitor**:
     - `yarn monitor`: Navigate to the SwiftX network monitor directory and run the network monitor script.
 
+## Smart Contract links
+- [SwiftX Ledger Ethereum Sepolia](https://sepolia.etherscan.io/address/0x6a6da2f286e27bf8aabbfbfde3251dd02188c89d)
+- [SwiftX Token Ethereum Sepolia](https://sepolia.etherscan.io/address/0x4648d6c6c3705d7bb85783d8f85570ba8a0ff23e)
+- [SwiftX Token Arbitrum Sepolia](https://sepolia.arbiscan.io/address/0xa88e420bba06379bd7872939ff510e2e3ea62f4a)
+
 ## Usage
 
 To start using the tools and libraries in this monorepo, refer to the documentation of each individual project.
