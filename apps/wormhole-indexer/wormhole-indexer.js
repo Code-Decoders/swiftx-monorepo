@@ -12,7 +12,7 @@ const indexWormhole = async () => {
     const { data: transactions, error: fetchError } = await supabase
       .from("transactions")
       .select("id, transaction_hash, status")
-      .eq("status", "pending");
+      .eq("status", "processing");
 
     if (fetchError) {
       throw new Error(`Error fetching transactions: ${fetchError.message}`);
