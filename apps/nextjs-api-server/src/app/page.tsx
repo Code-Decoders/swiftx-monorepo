@@ -36,7 +36,7 @@ const Home = () => {
                   Go to Dashboard
                 </button>
               </a>
-              <a href="#download">
+              <a href="https://github.com/Code-Decoders/swiftx-monorepo/releases/download/app/app-release.apk">
                 <button className="bg-white text-blue-600 px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors duration-300">
                   Download Now
                 </button>
