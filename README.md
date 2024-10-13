@@ -1,11 +1,11 @@
 # SwiftX Monorepo
-
 Welcome to the SwiftX Monorepo! This repository contains all the projects and packages related to the SwiftX ecosystem.
 
 ## Table of Contents
 
 - [Introduction](#introduction)
 - [Projects](#applications)
+- [Tech Stack](#tech-stack)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
@@ -21,7 +21,6 @@ Because when we say “SWIFT”, we mean it…
 
 > SwiftX offers enhanced speed, reliability, and compliance with global financial regulations, making it a scalable solution ready for integration. Its unique approach reduces settlement times compared to conventional SWIFT systems, ensuring seamless and efficient financial transactions.
 
-
 ## Applications
 
 This monorepo includes the following application:
@@ -31,8 +30,22 @@ This monorepo includes the following application:
 - **Admin Panel**: Admin panel for managing SwiftX treasury and governance.
 - **Contracts**: Smart contracts for the SwiftX ecosystem.
 - **Supabase Edge Functions**: Edge functions for Supabase.
-- **Netowrk Monitor**: Network monitor for the SwiftX network for gas and congestion.
+- **Network Monitor**: Network monitor for the SwiftX network for gas and congestion.
 - **Wormhole Indexer**: Indexer for the Wormhole bridge for processing transactions.
+
+## Tech Stack
+
+The SwiftX ecosystem leverages a variety of technologies to ensure robust and scalable solutions:
+
+- **Frontend**: Flutter for mobile applications.
+- **Backend**: Next.js for API server and admin panel.
+- **Blockchain**: Smart contracts written in Solidity.
+- **Database**: Supabase for edge functions and database management.
+- **Monitoring**: Custom network monitoring tools.
+- **Deployment**: Vercel for deploying the Next.js API server.
+- **Interoperability**: Wormhole SDK for cross-chain communication.
+- **Wallet**: Circle Developer Programmable Wallet for managing digital assets.
+- **Smart Contract Platform**: Circle Smart Contract Platform for deploying and managing smart contracts.
 
 ## Installation
 
@@ -71,6 +84,10 @@ Here are the commands you can use to manage and run the various applications in 
 ## Usage
 
 To start using the tools and libraries in this monorepo, refer to the documentation of each individual project.
+
+To test the product in action:
+- Download the APK from the releases section for the mobile app.
+- Log in to the admin dashboard for the admin panel.
 
 ## Contributing
 
