@@ -66,8 +66,8 @@ export default function Home() {
           <div className="text-xl font-semibold text-gray-700">SwiftX</div>
           <button
             className="bg-primary text-white px-4 py-2 rounded hover:bg-blue-600"
-            onClick={() => {
-              logout();
+            onClick={async () => {
+              await logout();
               router.push("/login");
             }}
           >
@@ -75,7 +75,7 @@ export default function Home() {
           </button>
         </div>
       </nav>
-      <div className="w-full px-4 max-w-7xl">
+      <div className="w-full px-4 max-w-7xl min-h-[77vh]">
         <h1 className="text-3xl font-semibold text-gray-700 mb-6 text-left">
           Hi Admin,
         </h1>
@@ -115,6 +115,17 @@ export default function Home() {
           }}
         />
       </div>
+      <footer className="w-full bg-white shadow-md mt-6 py-4">
+        <div className="max-w-7xl mx-auto px-4 text-center text-gray-700">
+          Developed by{" "}
+          <a
+            href="https://codedecoders.io"
+            className="text-blue-500 hover:underline"
+          >
+            CodeDecoders.io
+          </a>
+        </div>
+      </footer>
     </div>
   );
 }

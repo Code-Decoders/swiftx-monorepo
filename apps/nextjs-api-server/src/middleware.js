@@ -63,12 +63,12 @@ export async function middleware(request) {
       return NextResponse.redirect(url);
     }
 
-    // IMPORTANT: You *must* return the supabaseResponse object as it is. If you're
+    // IMPORTANT: You *must* return the response object as it is. If you're
     // creating a new response object with NextResponse.next() make sure to:
     // 1. Pass the request in it, like so:
     //    const myNewResponse = NextResponse.next({ request })
     // 2. Copy over the cookies, like so:
-    //    myNewResponse.cookies.setAll(supabaseResponse.cookies.getAll())
+    //    myNewResponse.cookies.setAll(response.cookies.getAll())
     // 3. Change the myNewResponse object to fit your needs, but avoid changing
     //    the cookies!
     // 4. Finally:

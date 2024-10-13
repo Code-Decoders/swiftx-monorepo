@@ -61,7 +61,9 @@ export default function Login() {
                         Login
                     </button>
                 </form>
-
+                <footer className="mt-8 text-center text-gray-500">
+                    Developed by <a href="https://codedecoders.io" className="text-blue-600 hover:underline">CodeDecoders.io</a>
+                </footer>
             </div>
         </div>
     );
