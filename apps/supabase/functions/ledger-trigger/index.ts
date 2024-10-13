@@ -62,7 +62,7 @@ Deno.serve(async (req) => {
       break;
     }
     case "transactions:INSERT": {
-      const amount = payload.record.amount * 10 ** 18;
+      const amount = eToNumber(payload.record.amount * 10 ** 18);
       const receiverId = payload.record.receiver_id;
       const senderId = payload.record.sender_id;
 
@@ -115,7 +115,7 @@ Deno.serve(async (req) => {
         payload.old_record.status === "completed" &&
         payload.record.status === "burned"
       ) {
-        const amount = payload.record.amount * 10 ** 18;
+        const amount = eToNumber(payload.record.amount * 10 ** 18);
         const receiverId = payload.record.receiver_id;
         const senderId = payload.record.sender_id;
 
@@ -167,3 +167,26 @@ Deno.serve(async (req) => {
   }
   return new Response("OK");
 });
+
+function eToNumber(num: any) {
+  let sign = "";
+  (num += "").charAt(0) == "-" && (num = num.substring(1), sign = "-");
+  let arr = num.split(/[e]/ig);
+  if (arr.length < 2) return sign + num;
+  let dot = (.1).toLocaleString().substr(1, 1),
+    n = arr[0],
+    exp = +arr[1],
+    w = (n = n.replace(/^0+/, "")).replace(dot, ""),
+    pos = n.split(dot)[1] ? n.indexOf(dot) + exp : w.length + exp,
+    L: any = pos - w.length,
+    s = "" + BigInt(w);
+  w = exp >= 0
+    ? (L >= 0 ? s + "0".repeat(L) : r())
+    : (pos <= 0 ? "0" + dot + "0".repeat(Math.abs(pos)) + s : r());
+  L = w.split(dot);
+  if (L[0] == 0 && L[1] == 0 || (+w == 0 && +s == 0)) w = 0; //** added 9/10/2021
+  return sign + w;
+  function r() {
+    return w.replace(new RegExp(`^(.{${pos}})(.)`), `$1${dot}$2`);
+  }
+}
