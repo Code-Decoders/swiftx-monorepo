@@ -32,10 +32,9 @@ This monorepo includes the following application:
 - **Mobile App**: SwiftX mobile app for iOS and Android.
 - **Next.js API Server**: API server built with Next.js.
 - **Admin Panel**: Admin panel for managing SwiftX treasury and governance.
-- **Contracts**: Smart contracts for the SwiftX ecosystem.
+- **Contracts**: Smart contracts for the SwiftX ecosystem deployed on Base.
 - **Supabase Edge Functions**: Edge functions for Supabase.
-- **Network Monitor**: Network monitor for the SwiftX network for gas and congestion.
-- **Wormhole Indexer**: Indexer for the Wormhole bridge for processing transactions.
+
 
 ## Tech Stack
 
@@ -43,13 +42,9 @@ The SwiftX ecosystem leverages a variety of technologies to ensure robust and sc
 
 - **Frontend**: Flutter for mobile applications.
 - **Backend**: Next.js for API server and admin panel.
-- **Blockchain**: Smart contracts written in Solidity.
+- **Blockchain**: Smart contracts written in Solidity and deployed on Base.
 - **Database**: Supabase for edge functions and database management.
-- **Monitoring**: Custom network monitoring tools.
 - **Deployment**: Vercel for deploying the Next.js API server.
-- **Interoperability**: Wormhole SDK for cross-chain communication.
-- **Wallet**: Circle Developer Programmable Wallet for managing digital assets.
-- **Smart Contract Platform**: Circle Smart Contract Platform for deploying and managing smart contracts.
 
 ## Installation
 
@@ -79,16 +74,9 @@ Here are the commands you can use to manage and run the various applications in 
 - **Supabase Edge Functions**:
     - `yarn supabase`: Navigate to the apps directory and deploy the Supabase edge function `ledger-trigger`.
 
-- **Wormhole Indexer**:
-    - `yarn wormhole`: Navigate to the Wormhole indexer directory and run the indexer script.
-
-- **Network Monitor**:
-    - `yarn monitor`: Navigate to the SwiftX network monitor directory and run the network monitor script.
-
 ## Smart Contract links
-- [SwiftX Ledger Ethereum Sepolia](https://sepolia.etherscan.io/address/0x6a6da2f286e27bf8aabbfbfde3251dd02188c89d)
-- [SwiftX Token Ethereum Sepolia](https://sepolia.etherscan.io/address/0x4648d6c6c3705d7bb85783d8f85570ba8a0ff23e)
-- [SwiftX Token Arbitrum Sepolia](https://sepolia.arbiscan.io/address/0xa88e420bba06379bd7872939ff510e2e3ea62f4a)
+- [SwiftX Ledger]()
+- [SwiftX Token ]()
 
 ## Usage
 
