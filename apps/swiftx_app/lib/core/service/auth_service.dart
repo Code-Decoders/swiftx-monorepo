@@ -30,13 +30,13 @@ class AuthService {
   Future<UserModel> getUserData({String? email}) async {
     final user = supabase.auth.currentUser;
     final response =
-        await supabase.from("users").select().eq("email", email ?? user!.email!).single();
+        await supabase.from("users_v2").select().eq("email", email ?? user!.email!).single();
     return UserModel.fromMap(response);
   }
 
   Future<bool> checkUsername(String username) async {
     final response =
-        await supabase.from("users").select().eq("username", username);
+        await supabase.from("users_v2").select().eq("username", username);
     return response.isNotEmpty;
   }
 
@@ -46,7 +46,7 @@ class AuthService {
 
   Future<void> verifyUser() async {
     final user = supabase.auth.currentUser;
-    return await supabase.from("users").update({"verified": true}).eq(
+    return await supabase.from("users_v2").update({"verified": true}).eq(
       "email",
       user!.email!,
     );

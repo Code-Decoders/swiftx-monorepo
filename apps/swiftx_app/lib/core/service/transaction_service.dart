@@ -18,11 +18,11 @@ class TransactionService {
         sender_id: user.id,
         receiver_id: recipient.id,
       );
-      await supabase.from("transactions").insert(transaction.toMap());
-      await supabase.from("users").update({
+      await supabase.from("transactions_v2").insert(transaction.toMap());
+      await supabase.from("users_v2").update({
         "balance": user.balance - amount,
       }).eq("id", user.id);
-      await supabase.from("users").update({
+      await supabase.from("users_v2").update({
         "balance": recipient.balance + amount,
       }).eq("id", recipient.id);
     } catch (e) {
@@ -34,7 +34,7 @@ class TransactionService {
     try {
       final user = await locator<AuthService>().getUserData();
       final response = await supabase
-          .from("transactions")
+          .from("transactions_v2")
           .select("*, sender:sender_id(*), receiver:receiver_id(*)")
           .or("sender_id.eq.${user.id},receiver_id.eq.${user.id}")
           .order("created_at", ascending: false);
@@ -48,7 +48,7 @@ class TransactionService {
     try {
       final user = await locator<AuthService>().getUserData();
       final response = await supabase
-          .from("transactions")
+          .from("transactions_v2")
           .select("*, sender:sender_id(*), receiver:receiver_id(*)")
           .or("sender_id.eq.${user.id},receiver_id.eq.${user.id}")
           .order("created_at", ascending: false)

@@ -18,7 +18,7 @@ class RequestService {
         requester_id: user.id,
         approver_id: approver.id,
       );
-      await supabase.from("requests").insert(request.toMap());
+      await supabase.from("requests_v2").insert(request.toMap());
     } catch (e) {
       rethrow;
     }
@@ -28,7 +28,7 @@ class RequestService {
     try {
       final user = await locator<AuthService>().getUserData();
       final response = await supabase
-          .from("requests")
+          .from("requests_v2")
           .select("*, requester:requester_id(*), approver:approver_id(*)")
           .or("requester_id.eq.${user.id},approver_id.eq.${user.id}")
           .order("created_at", ascending: false);
@@ -50,7 +50,7 @@ class RequestService {
 
   Future<void> deleteRequest(int id) async {
     try {
-      await supabase.from("requests").delete().eq("id", id);
+      await supabase.from("requests_v2").delete().eq("id", id);
     } catch (e) {
       rethrow;
     }
