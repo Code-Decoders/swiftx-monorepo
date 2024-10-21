@@ -21,6 +21,15 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/dashboard/page.tsx", "src/app/layout_1.tsx", "src/middleware.js"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/dashboard/page.tsx",
+    "src/app/layout_1.tsx",
+    "src/middleware.js",
+    "src/lib/initCoinbaseWallet.js"
+  ],
   "exclude": ["node_modules"]
 }
