@@ -75,8 +75,8 @@ Here are the commands you can use to manage and run the various applications in 
     - `yarn supabase`: Navigate to the apps directory and deploy the Supabase edge function `ledger-trigger`.
 
 ## Smart Contract links
-- [SwiftX Ledger]()
-- [SwiftX Token ]()
+- [SwiftX Ledger](https://sepolia.basescan.org/address/0xd1c6b50a1b2e37a9d152d9330947d3858e5d016b)
+- [SwiftX Token ](https://sepolia.basescan.org/address/0xc184ce0520d4b0bcd86d4f580a64222808242375)
 
 ## Usage
 
