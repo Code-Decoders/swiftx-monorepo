@@ -78,10 +78,11 @@ export const getStats = async () => {
 };
 
 export const burnToken = async (id) => {
-  const { error } = await supabase
-    .from("transactions_v2")
-    .update({ status: "burned" })
-    .eq("id", id);
-  if (error) throw error;
+  console.log("Buring yayaaaayy");
+  // const { error } = await supabase
+  //   .from("transactions_v2")
+  //   .update({ status: "burned" })
+  //   .eq("id", id);
+  // if (error) throw error;
   return true;
 };

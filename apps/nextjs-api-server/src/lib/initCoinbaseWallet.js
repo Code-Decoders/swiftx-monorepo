@@ -13,7 +13,7 @@ const checkKeyExists = async (filePath) => {
 
 export const coinbase = Coinbase.configureFromJson({
   filePath: `${os.homedir}/Code/web/swiftx-monorepo/apps/nextjs-api-server/src/lib/cdp_api_key.json`,
-  useServerSigner: true,
+  useServerSigner: false,
 });
 
 export const fetchWallet = async () => {
@@ -23,11 +23,7 @@ export const fetchWallet = async () => {
   const fileExists = await checkKeyExists(filePath);
 
   if (fileExists) {
-    w = await Wallet.create({
-      networkId: Coinbase.networks.BaseSepolia,
-    });
-
-    let data = w.export();
+    w = await Wallet.create({});
 
     w.saveSeed(filePath, true);
   } else {
@@ -35,17 +31,8 @@ export const fetchWallet = async () => {
       networkId: Coinbase.networks.BaseSepolia,
     });
 
-    let data = w.export();
-
     w.saveSeed(filePath, true);
   }
 
   return w;
 };
-
-const create = async () => {
-  const res = await fetchWallet();
-  console.log(res);
-};
-
-create();

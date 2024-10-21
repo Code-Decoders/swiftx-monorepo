@@ -144,7 +144,8 @@ export default function Home() {
         </p>
         <Table
           data={tableData}
-          onBurnToken={(data: { amount: number; txId: string }) => {
+          onBurnToken={async (data: { amount: number; txId: string }) => {
+            await burnToken(data.txId);
             writeContracts({
               contracts: [
                 {
