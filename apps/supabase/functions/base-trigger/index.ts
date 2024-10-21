@@ -33,35 +33,12 @@ const swiftXAPICall = async (
   return response.json();
 };
 
-const createWallet = async (email: string) => {
-  const response = await fetch(
-    "https://swiftx-nextjs.vercel.app/api/wallet",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name: email }),
-    },
-  );
-  return await response.json();
-};
 
 Deno.serve(async (req) => {
   const payload: WebhookPayload = await req.json();
 
-  const operation = `${payload.table}:${payload.type}`;
-  console.log(operation);
-  switch (operation) {
-    case "users:INSERT": {
-      const response = await createWallet(payload.record.email);
-      const { data, error } = await supabaseClient.from("users").update({
-        metadata: response,
-      }).eq("id", payload.record.id);
-      console.log(data, error);
-      break;
-    }
-    case "transactions:INSERT": {
+  switch (payload.type) {
+    case "INSERT": {
       const amount = eToNumber(payload.record.amount * 10 ** 18);
       const receiverId = payload.record.receiver_id;
       const senderId = payload.record.sender_id;
@@ -70,7 +47,7 @@ Deno.serve(async (req) => {
       console.log("senderId", senderId);
       console.log("amount", amount);
 
-      const { data: receiver } = await supabaseClient.from("users").select(
+      const { data: receiver } = await supabaseClient.from("users_v2").select(
         "metadata",
       ).eq(
         "id",
@@ -79,7 +56,7 @@ Deno.serve(async (req) => {
 
       console.log("receiver", receiver);
 
-      const { data: sender } = await supabaseClient.from("users").select(
+      const { data: sender } = await supabaseClient.from("users_v2").select(
         "metadata",
       ).eq(
         "id",
@@ -102,14 +79,14 @@ Deno.serve(async (req) => {
 
       console.log(response);
 
-      const { data, error } = await supabaseClient.from("transactions").update({
+      const { data, error } = await supabaseClient.from("transactions_v2").update({
         transaction_hash: response.txHash,
       }).eq("id", payload.record.id);
 
       console.log(data, error);
       break;
     }
-    case "transactions:UPDATE": {
+    case "UPDATE": {
       console.log(payload.old_record.status, payload.record.status);
       if (
         payload.old_record.status === "completed" &&
@@ -123,7 +100,7 @@ Deno.serve(async (req) => {
         console.log("senderId", senderId);
         console.log("amount", amount);
 
-        const { data: receiver } = await supabaseClient.from("users").select(
+        const { data: receiver } = await supabaseClient.from("users_v2").select(
           "metadata",
         ).eq(
           "id",
@@ -132,7 +109,7 @@ Deno.serve(async (req) => {
 
         console.log("receiver", receiver);
 
-        const { data: sender } = await supabaseClient.from("users").select(
+        const { data: sender } = await supabaseClient.from("users_v2").select(
           "metadata",
         ).eq(
           "id",
@@ -155,7 +132,7 @@ Deno.serve(async (req) => {
 
         console.log(response);
 
-        const { data, error } = await supabaseClient.from("transactions")
+        const { data, error } = await supabaseClient.from("transactions_v2")
           .update({
             transaction_hash: response.txHash,
           }).eq("id", payload.record.id);
