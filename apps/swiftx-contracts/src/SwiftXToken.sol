@@ -2,18 +2,22 @@
 pragma solidity ^0.8.13;
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "../lib/wormhole-solidity-sdk/src/interfaces/IWormholeRelayer.sol";
+import "./lib/wormhole-solidity-sdk/src/interfaces/IWormholeRelayer.sol";
+import "./lib/wormhole-solidity-sdk/src/interfaces/IWormholeReceiver.sol";
 
 /**
  * @title SwiftXToken
  * @dev ERC20 Token with minting and burning capabilities, integrated with Wormhole for cross-chain transfers.
  */
-contract SwiftXToken is ERC20 {
+contract SwiftXToken is ERC20, Ownable, IWormholeReceiver {
     address public parentContract;
     uint16 public parentChainId;
     IWormholeRelayer public immutable wormholeRelayer;
     
     uint256 GAS_LIMIT = 250_000;
+
+    // Events
+    event CompleteTransaction(uint256 indexed amount, address indexed account, uint256 indexed txId);
 
     /**
      * @dev Initializes the token with Wormhole parameters.
@@ -32,12 +36,18 @@ contract SwiftXToken is ERC20 {
         uint16 _parentChainId
     )
         ERC20(name_, symbol_)
+        Ownable(msg.sender)
     {
         require(_wormholeRelayer != address(0), "Invalid Wormhole Relayer address");
         require(_parentContract != address(0), "Invalid Parent Contract address");
         wormholeRelayer = IWormholeRelayer(_wormholeRelayer);
         parentContract = _parentContract;
         parentChainId = _parentChainId; 
+    }
+
+    modifier onlyParent {
+        require(msg.sender == parentContract);
+        _;
     }
 
     /**
@@ -51,14 +61,13 @@ contract SwiftXToken is ERC20 {
 
         require(msg.value > cost, "msg.value must equal quoteCrossChainDeposit(targetChain)");
 
-        _mint(address(this), amount);
-
         // Encode the payload: (amount, sender)
         bytes memory payload = abi.encode(
             txId,
             amount,
             recipient,
-            msg.sender
+            msg.sender,
+            address(this)
         );
 
         wormholeRelayer.sendPayloadToEvm{value: cost}(
@@ -68,6 +77,24 @@ contract SwiftXToken is ERC20 {
             0,
             GAS_LIMIT
         );
+    }
+
+        function receiveWormholeMessages(
+        bytes memory payload,
+        bytes[] memory,
+        bytes32,        
+        uint16,
+        bytes32             
+    ) public payable override {         
+        (uint256 txId, uint256 amount, address recipient) = abi
+            .decode(payload, (uint256, uint256, address));
+
+        _completeTransfer(txId, amount, recipient);
+    }
+
+    function _completeTransfer(uint256 txId, uint256 amount, address recipient) internal {
+        _mint(address(this), amount);
+        emit CompleteTransaction(amount, recipient, txId);
     }
 
     function confirmTransfer(uint256 amount, uint256 txId, address sender) public payable {
@@ -99,7 +126,7 @@ contract SwiftXToken is ERC20 {
      * @notice Allows the owner to update the Parent Contract address.
      * @param _newParent Address of the new Parent Contract.
      */
-    function updateParentContract(address _newParent) public {
+    function updateParentContract(address _newParent) public  onlyOwner {
         require(_newParent != address(0), "Invalid Parent Contract address");
         parentContract = _newParent;
     }
@@ -108,7 +135,7 @@ contract SwiftXToken is ERC20 {
      * @notice Allows the owner to update the Parent Chain ID.
      * @param _newParentChainId The new Parent Chain identifier.
      */
-    function updateParentChainId(uint16 _newParentChainId) public {
+    function updateParentChainId(uint16 _newParentChainId) public onlyOwner {
         parentChainId = _newParentChainId;
     }
 
